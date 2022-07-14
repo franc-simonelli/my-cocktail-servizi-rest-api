@@ -54,7 +54,7 @@ class HomeProvider extends ChangeNotifier {
   void getDrinkByIngrediente(ingrediente) async{
     _ingredienteSelect = ingrediente;  
     var _drinkService = Injector().get<DrinkService>();
-    _listaDrink = await _drinkService.getDrinkByIngrediente(ingrediente);
+    _listaDrink = await _drinkService.getDrinkByIngrediente(_ingredienteSelect.strIngredient1);
     notifyListeners();
 
   }

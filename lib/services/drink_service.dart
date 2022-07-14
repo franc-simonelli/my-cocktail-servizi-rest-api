@@ -32,7 +32,7 @@ class DrinkService {
 
   Future<List<Drink>> getDrinkByIngrediente(ingrediente) async {
     // Fimber.i("FaqsService - getFaqs started");
-    var response = await _httpService.httpGet("v1/1/filter.php?i=$ingrediente");
+    var response = await _httpService.httpGet("v1/1/filter.php?i=${ingrediente}");
     if (response.success == true) {
       // Fimber.i('Faqs founded');
       List<Drink> drink = [];

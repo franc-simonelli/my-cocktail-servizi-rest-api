@@ -1,5 +1,5 @@
 class Drink {
-  late int idDrink;
+  late String idDrink;
   late String strDrink;
   late String? strDrinkThumb;
 
