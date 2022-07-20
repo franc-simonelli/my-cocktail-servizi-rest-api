@@ -1,6 +1,13 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
+import 'package:autoproject/screen/home/detail_cocktail_screen.dart';
+import 'package:autoproject/screen/home/widget/cocktail_widget.dart';
+import 'package:autoproject/screen/home/widget/filter_search_widget.dart';
+import 'package:autoproject/screen/home/widget/grid_view.widget.dart';
 import 'package:autoproject/utils/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/home_page_provider.dart';
@@ -13,87 +20,66 @@ class AllCocktailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyTheme.secondary,
-      body: Consumer<HomeProvider>(builder: (ctx, provider, _) {
-        return Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 70,),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("${provider.ingredienteSelect.strIngredient1}", style: MyTheme.theme.textTheme.titleMedium,),
-                  ],
-                ),
-                
-          
-                GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 30,
-                    crossAxisSpacing: 40,
-                    childAspectRatio: 1.0
-                  ),
-                  itemCount: provider.listaDrink.length,
-                  itemBuilder: (BuildContext context, int i) {
-                    return Container(
-                      width: 120,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            MyTheme.primary,
-                            Color.fromARGB(255, 17, 17, 20),
-                            
-                          ], 
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(15.0, ),
-                            child: Row(
-                              children: [
-                                Expanded(child: Text("${provider.listaDrink[i].strDrink}", style: MyTheme.theme.textTheme.labelSmall))
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)
-                                  ),
-                                  height: 80,
-                                  width: 80,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.network("${provider.listaDrink[i].strDrinkThumb}", fit: BoxFit.cover,)
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      )
-                    );
-                  }
-                )
-              ]
+      
+      body: CustomScrollView(
+        physics: ScrollPhysics(parent: BouncingScrollPhysics()),
+        slivers: [
+          SliverAppBar(
+            backgroundColor: MyTheme.secondary,
+            pinned: false,
+            snap: false,
+            floating: true,
+            expandedHeight: 65.0,
+            leading: Icon(Icons.arrow_back, color: Colors.transparent,),
+            flexibleSpace: FlexibleSpaceBar(
+              expandedTitleScale: 1.0,
+              // centerTitle: true,
+              titlePadding: EdgeInsets.only(top: 35, left: 20, right: 20, bottom: 5),
+
+              title: FilterWidget(),
             ),
           ),
-        );
-      }),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Consumer<HomeProvider>(builder: (ctx, provider, _) {
+                  return Column(
+                    children: [
+                      // gridViewAllCocktail(provider)
+                      GridViewWidget(provider.listaDrinkFiltrataByIngrediente)
+                    ]
+                  );
+                }),
+              ]
+            ),
+          )
+        ]
+
+      )
     );
   }
+
+  // Widget gridViewAllCocktail(HomeProvider provider) {
+  //   return GridView.builder(
+  //     physics: NeverScrollableScrollPhysics(),
+  //     shrinkWrap: true,
+  //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //       crossAxisCount: 2,
+  //       mainAxisSpacing: 30,
+  //       crossAxisSpacing: 40,
+  //       childAspectRatio: 1.0
+  //     ),
+  //     itemCount: provider.listaDrinkFiltrataByIngrediente.length,
+  //     itemBuilder: (BuildContext context, int i) {
+  //       return InkWell(
+  //         child: CocktailWidget(provider.listaDrinkFiltrataByIngrediente[i]),
+  //         onTap: () {
+  //           Provider.of<HomeProvider>(context, listen: false).getDrinkById(provider.listaDrinkFiltrataByIngrediente[i].idDrink);
+  //           Navigator.of(context).pushNamed(DetailsCocktailScreen.routeName);
+  //         },
+  //       );
+  //     }
+  //   );
+  // }
 }
+

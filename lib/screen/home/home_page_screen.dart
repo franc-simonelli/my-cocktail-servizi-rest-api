@@ -4,6 +4,7 @@ import 'package:autoproject/models/ingredienti_model.dart';
 import 'package:autoproject/provider/bottom_navigation_bar_provider.dart';
 import 'package:autoproject/provider/home_page_provider.dart';
 import 'package:autoproject/screen/home/all_cocktail_screen.dart';
+import 'package:autoproject/screen/home/search_cocktails_screen.dart';
 import 'package:autoproject/screen/home/widget/ingrediente_widget.dart';
 import 'package:autoproject/screen/preferiti/preferiti_screen.dart';
 import 'package:autoproject/utils/constants.dart';
@@ -48,7 +49,7 @@ class HomePageScreen extends StatelessWidget {
                               children: [
                                 SizedBox(height: 70,),
                                 titleWidget(),
-                                searchCocktailWidget(),
+                                searchCocktailWidget(context),
                                 SizedBox(height: 10),
                               ],
                             ),
@@ -159,30 +160,48 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-  Widget searchCocktailWidget() {
+  Widget searchCocktailWidget(context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 30, 31, 37),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.grey)
-        ),
-        child: TextField(  
-          cursorColor: Color.fromARGB(255, 21, 21, 26),
-          style: TextStyle(fontSize: 18),
-          
-          decoration: InputDecoration(
-            suffixIcon: Icon(Icons.search, color: Colors.grey,),
-            contentPadding: EdgeInsets.all(15),
-            hintText: 'Name a Cocktail?',
-            hintStyle: GoogleFonts.josefinSans(color: Colors.grey, fontSize: 17),
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            errorBorder: InputBorder.none,
-            disabledBorder: InputBorder.none,
+      child: InkWell(
+        onTap: () {
+          Provider.of<HomeProvider>(context, listen: false).initSearch();
+          Navigator.of(context).pushNamed(SearchCocktailScreen.routeName);
+        },
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 50,
+          decoration: BoxDecoration(
+            color: MyTheme.primary,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.grey)
           ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(   
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Name a Cocktail?", style: GoogleFonts.josefinSans(color: Colors.grey, fontSize: 17),),
+                Icon(Icons.search, color: Colors.grey,),
+              ],
+            ),
+          )
+          // child: TextField(  
+          //   cursorColor: Color.fromARGB(255, 21, 21, 26),
+          //   style: TextStyle(fontSize: 18),
+            
+          //   decoration: InputDecoration(
+          //     suffixIcon: Icon(Icons.search, color: Colors.grey,),
+          //     contentPadding: EdgeInsets.all(15),
+          //     hintText: 'Name a Cocktail?',
+          //     hintStyle: GoogleFonts.josefinSans(color: Colors.grey, fontSize: 17),
+          //     border: InputBorder.none,
+          //     focusedBorder: InputBorder.none,
+          //     enabledBorder: InputBorder.none,
+          //     errorBorder: InputBorder.none,
+          //     disabledBorder: InputBorder.none,
+          //   ),
+          // ),
         ),
       ),
     );

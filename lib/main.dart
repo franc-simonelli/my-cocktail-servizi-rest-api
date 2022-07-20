@@ -5,9 +5,12 @@
 import 'package:autoproject/provider/bottom_navigation_bar_provider.dart';
 import 'package:autoproject/provider/dashboard_provider.dart';
 import 'package:autoproject/provider/home_page_provider.dart';
+import 'package:autoproject/provider/preferiti_provider.dart';
 import 'package:autoproject/screen/dashboard/dashboard_screen.dart';
 import 'package:autoproject/screen/home/all_cocktail_screen.dart';
+import 'package:autoproject/screen/home/detail_cocktail_screen.dart';
 import 'package:autoproject/screen/home/home_page_screen.dart';
+import 'package:autoproject/screen/home/search_cocktails_screen.dart';
 import 'package:autoproject/screen/preferiti/preferiti_screen.dart';
 import 'package:autoproject/screen/splash_screen.dart';
 import 'package:autoproject/services/drink_service.dart';
@@ -28,6 +31,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => HomeProvider(),),
         ChangeNotifierProvider(create: (_) => BottomNavigationBarProvider(),),
         ChangeNotifierProvider(create: (_) => DashboardProvider(),),
+        ChangeNotifierProvider(create: (_) => PreferitiProvider(),),
       ],
       child: MyApp(),
     ),
@@ -51,7 +55,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: MyTheme.theme,
-      initialRoute: DashboardScreen.routeName,
+      initialRoute: SplahScreen.routeName,
       routes: createRoutes(),
     );
   }
@@ -73,5 +77,7 @@ Map<String, Widget Function(BuildContext)> createRoutes() {
     SplahScreen.routeName: (ctx) => SplahScreen(),
     DashboardScreen.routeName: (ctx) => DashboardScreen(),
     AllCocktailScreen.routeName: (ctx) => AllCocktailScreen(),
+    DetailsCocktailScreen.routeName: (ctx) => DetailsCocktailScreen(),
+    SearchCocktailScreen.routeName: (ctx) => SearchCocktailScreen(),
   };
 }

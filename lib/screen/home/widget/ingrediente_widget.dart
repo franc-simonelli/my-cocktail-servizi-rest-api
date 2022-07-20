@@ -13,15 +13,27 @@ class IngredienteWidget extends StatelessWidget {
       width: 120,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
+        border: Border.all(color: MyTheme.primary),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
             MyTheme.primary,
-            Color.fromARGB(255, 17, 17, 20),
-            
+            MyTheme.ingredienteCard
           ], 
         ),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 2,
+            offset: Offset(-2, -3),
+            color: Colors.grey.shade800
+          ),
+          BoxShadow(
+            blurRadius: 2,
+            offset: Offset(3, 0),
+            color: Colors.black
+          )
+        ]
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
