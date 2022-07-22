@@ -1,11 +1,12 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
-import 'package:autoproject/provider/home_page_provider.dart';
-import 'package:autoproject/utils/my_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../../../provider/home_page_provider.dart';
+import '../../../utils/my_theme.dart';
 
 class FilterWidget extends StatefulWidget {
   const FilterWidget({Key? key}) : super(key: key);
@@ -53,7 +54,7 @@ class _FilterWidgetState extends State<FilterWidget> {
       ),
       child: TextField(  
         controller: _searchController,
-        cursorColor: Color.fromARGB(255, 21, 21, 26),
+        cursorColor: const Color.fromARGB(255, 21, 21, 26),
         style: TextStyle(fontSize: 18),
         
         decoration: InputDecoration(

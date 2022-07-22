@@ -1,20 +1,17 @@
 // ignore_for_file: prefer_final_fields, unused_field
 
-import 'dart:convert';
-
 import 'package:autoproject/models/dettaglio_drink_model.dart';
 import 'package:autoproject/models/ingredienti_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_simple_dependency_injection/injector.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../models/drink_model.dart';
 import '../services/drink_service.dart';
 
 class HomeProvider extends ChangeNotifier {
   
-  List<String> basi = ["Gin", "Vodka", "Light rum", "Dark rum", "Tequila", "Whiskey"];
+  List<String> basi = ["Gin", "Vodka", "Light rum", "Dark rum", "Tequila", "Whiskey", 'Bourbon'];
   List<Ingredienti> _listaIngredienti = [];
   List<Ingredienti> _basiAlcoliche = [];
   bool _loading = false;
@@ -26,10 +23,8 @@ class HomeProvider extends ChangeNotifier {
   late DettaglioDrink _dettaglioDrink;
   late List<Drink> _listaDrinkCronologia = [];
   late List<Drink> _listaDrinkCronologiaFiltrata = [];
-  
   late List<String> _cocktailPreferitiId = [];
   late List<Drink> _listaPreferiti = [];
-
 
 
   List<Drink> get listaPreferiti => _listaPreferiti;
@@ -76,9 +71,23 @@ class HomeProvider extends ChangeNotifier {
   }
 
   void getDrinkByIngrediente(ingrediente) async{
+    final prefs = await SharedPreferences.getInstance();
+    final List<String>? preferiti = prefs.getStringList('preferiti');
+
     _ingredienteSelect = ingrediente;  
     var _drinkService = Injector().get<DrinkService>();
     _listaDrinkByIngrediente = await _drinkService.getDrinkByIngrediente(_ingredienteSelect.strIngredient1);
+    // setIsPreferiti(preferiti);
+
+    for(var i=0; i < _listaDrinkByIngrediente.length; i++) {
+      if(preferiti!.contains(_listaDrinkByIngrediente[i].idDrink)) {
+        _listaDrinkByIngrediente[i].isPreferito = true;
+      }
+      else {
+        _listaDrinkByIngrediente[i].isPreferito = false;
+      }
+    }
+    
     _listaDrinkFiltrataByIngrediente = _listaDrinkByIngrediente;
     notifyListeners();
   }
@@ -88,6 +97,16 @@ class HomeProvider extends ChangeNotifier {
     var _drinkService = Injector().get<DrinkService>();
     var lista = await _drinkService.getDrinkById(id);
     _dettaglioDrink = lista[0];
+
+    final prefs = await SharedPreferences.getInstance();
+    final List<String>? preferiti = prefs.getStringList('preferiti');
+
+    if(preferiti!.contains(_dettaglioDrink.idDrink)) {
+      _dettaglioDrink.isPreferito = true;
+    }else {
+      _dettaglioDrink.isPreferito = false;
+    }
+
     _loading = false;
     notifyListeners();
   }
@@ -135,34 +154,62 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  salvaNeiPreferiti(id) async {
+  salvaNeiPreferiti(id, screenName) async {
     final prefs = await SharedPreferences.getInstance();
     final List<String>? preferiti = prefs.getStringList('preferiti');
-    if(preferiti!.contains(id)) {
-      preferiti.remove(id);
-    } else {
-      preferiti.add(id);
-    }
-    await prefs.setStringList('preferiti', preferiti);
 
+    // AGGIUNGO IL NUOVO ID DRINK ALLA LISTA PREFERITI
+    preferiti!.add(id);
+
+    // CICLO LA LISTA DEI DRINK VISIBILE IN all_cocktail_screen PER AGGIORNARE L'ICONA DEL CUORE
+    for(var item in _listaDrinkFiltrataByIngrediente) {
+      if(item.idDrink == id) {
+        item.isPreferito = true;
+      }
+    }
+
+    // CONTROLLO SE SONO SUL DETTAGLIO DEL DRINK PER AGGIORNARE L'ICONA DEL CUORE
+    if(screenName == 'detailsCocktail') {
+      _dettaglioDrink.isPreferito = true;
+    }
+
+    await prefs.setStringList('preferiti', preferiti);
     notifyListeners();
   }
 
-  // Future<Color> checkPreferiti(id) async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final List<String>? preferiti = prefs.getStringList('preferiti');
+  removePreferito(id, isHeart, screenName ) async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String>? preferiti = prefs.getStringList('preferiti');
+
+    // RIMUOVO L'ID DRINK ALLA LISTA PREFERITI
+    preferiti!.remove(id);
+
+    // CONTROLLO SE STO ELIMINANDO UN PREFERITO CLICCANDO SUL CUORE OPPURE DALLA LISTA PREFERITI (preferiti_screen)
+    if(isHeart) {
+      // CICLO LA LISTA DEI DRINK VISIBILE IN all_cocktail_screen PER AGGIORNARE L'ICONA DEL CUORE
+      for(var item in _listaDrinkFiltrataByIngrediente) {
+        if(item.idDrink == id) {
+          item.isPreferito = false;
+        }
+      }
+    }else {
+      // CICLO LA LISTA DEI DRINK PREFEITI VISIBILE IN preferiti_screen PER AGGIORNARE LA LISTA 
+      for(var i=0; i < _listaPreferiti.length; i++) {
+        if(_listaPreferiti[i].idDrink == id) {
+          _listaPreferiti.remove(_listaPreferiti[i]);
+        }
+      }
+    }
     
-  //   if(preferiti!.contains(id)) {
-  //     return Colors.red;
-      
-  //   } else {
-  //     return Colors.grey;
-  //   }
-    
-  // }
+    if(screenName == 'detailsCocktail') {
+      _dettaglioDrink.isPreferito = false;
+    }
+    await prefs.setStringList('preferiti', preferiti);
+    notifyListeners();
+  }
 
   generateListaPreferiti() async {
-    // _loading = true;
+    _loading = true;
     _listaPreferiti = [];
     final prefs = await SharedPreferences.getInstance();
     // prefs.remove('preferiti');
@@ -172,8 +219,10 @@ class HomeProvider extends ChangeNotifier {
     if(preferiti!.isNotEmpty) {
       var _drinkService = Injector().get<DrinkService>();
       for(var item in preferiti ) {
-        var lista = await _drinkService.getDrinkByIdPreferiti(item);
-        _listaPreferiti.add(lista[0]);
+        if(item != '') {
+          var lista = await _drinkService.getDrinkByIdPreferiti(item);
+          _listaPreferiti.add(lista[0]);
+        }
       }
     }
 
@@ -181,12 +230,6 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  removePreferito(drink) {
-    if(_listaPreferiti.contains(drink)) {
-      _listaPreferiti.remove(drink);
-      notifyListeners();
-    }
-    
-  }
+  
   
 }

@@ -1,12 +1,13 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
+
 import 'dart:async';
 
-import 'package:autoproject/provider/home_page_provider.dart';
-import 'package:autoproject/utils/my_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../../../provider/home_page_provider.dart';
+import '../../../utils/my_theme.dart';
 
 class SearchByNameWidget extends StatefulWidget {
   SearchByNameWidget({Key? key}) : super(key: key);
@@ -54,8 +55,8 @@ class _SearchByNameWidgetState extends State<SearchByNameWidget> {
       ),
       child: TextField(  
         controller: _searchController,
-        cursorColor: Color.fromARGB(255, 21, 21, 26),
-        style: TextStyle(fontSize: 18),
+        cursorColor: const Color.fromARGB(255, 21, 21, 26),
+        style: const TextStyle(fontSize: 18),
         
         decoration: InputDecoration(
           suffixIcon: Icon(Icons.search, color: Colors.grey,),

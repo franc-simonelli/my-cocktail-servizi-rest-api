@@ -1,4 +1,6 @@
-﻿import 'dart:convert';
+﻿// ignore_for_file: avoid_function_literals_in_foreach_calls
+
+import 'dart:convert';
 
 import 'package:autoproject/models/dettaglio_drink_model.dart';
 import 'package:autoproject/models/drink_model.dart';
@@ -17,7 +19,6 @@ class DrinkService {
       // Fimber.i('Faqs founded');
       List<Ingredienti> ingredienti = [];
       (jsonDecode(response.data)['drinks'] as List<dynamic>).forEach((element) {
-        // element.image = 'https://www.thecocktaildb.com/images/ingredients/' + element[0].value +  '-Small.png';
         ingredienti.add(Ingredienti.fromJson(element));
 
       });
@@ -26,14 +27,14 @@ class DrinkService {
       return ingredienti;
     } else {
       // Fimber.i('FaqsService - getFaqs error intercepted');
-      throw new Exception(
+      throw Exception(
           "Errore in fase di recupero delle informazioni: ${response.errorMessage}");
     }
   }
 
   Future<List<Drink>> getDrinkByIngrediente(ingrediente) async {
     // Fimber.i("FaqsService - getFaqs started");
-    var response = await _httpService.httpGet("v1/1/filter.php?i=${ingrediente}");
+    var response = await _httpService.httpGet("v1/1/filter.php?i=$ingrediente");
     if (response.success == true) {
       // Fimber.i('Faqs founded');
       List<Drink> drink = [];
@@ -47,13 +48,13 @@ class DrinkService {
       return drink;
     } else {
       // Fimber.i('FaqsService - getFaqs error intercepted');
-      throw new Exception(
+      throw Exception(
           "Errore in fase di recupero delle informazioni: ${response.errorMessage}");
     }
   }
 
    Future<List<DettaglioDrink>> getDrinkById(id) async {
-    var response = await _httpService.httpGet("/v1/1/lookup.php?i=${id}");
+    var response = await _httpService.httpGet("/v1/1/lookup.php?i=$id");
 
     if (response.success == true) {
       List<DettaglioDrink> drink = [];
@@ -64,13 +65,13 @@ class DrinkService {
       });
       return drink;
     } else {
-      throw new Exception(
+      throw Exception(
           "Errore in fase di invio: ${response.errorMessage}");
     }
   }
 
   Future<List<Drink>> getDrinkByIdPreferiti(id) async {
-    var response = await _httpService.httpGet("/v1/1/lookup.php?i=${id}");
+    var response = await _httpService.httpGet("/v1/1/lookup.php?i=$id");
 
     if (response.success == true) {
       List<Drink> drink = [];
@@ -81,14 +82,14 @@ class DrinkService {
       });
       return drink;
     } else {
-      throw new Exception(
+      throw Exception(
           "Errore in fase di invio: ${response.errorMessage}");
     }
   }
 
   Future<List<Drink>> getDrinkByName(name) async {
     // Fimber.i("FaqsService - getFaqs started");
-    var response = await _httpService.httpGet("v1/1/search.php?s=${name}");
+    var response = await _httpService.httpGet("v1/1/search.php?s=$name");
     if (response.success == true) {
       // Fimber.i('Faqs founded');
       List<Drink> drink = [];
@@ -103,7 +104,7 @@ class DrinkService {
       return drink;
     } else {
       // Fimber.i('FaqsService - getFaqs error intercepted');
-      throw new Exception(
+      throw Exception(
           "Errore in fase di recupero delle informazioni: ${response.errorMessage}");
     }
   }

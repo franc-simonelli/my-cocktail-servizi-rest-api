@@ -1,22 +1,16 @@
-// ignore_for_file: prefer_const_constructors
-
+// ignore_for_file: prefer_const_constructors, unused_local_variable
 import 'dart:async';
-
-import 'package:autoproject/screen/dashboard/dashboard_screen.dart';
-import 'package:autoproject/screen/home/home_page_screen.dart';
 import 'package:autoproject/utils/my_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../provider/home_page_provider.dart';
+import 'dashboard/dashboard_screen.dart';
 
 class SplahScreen extends StatelessWidget {
   const SplahScreen({ Key? key }) : super(key: key);
   static const String routeName = "/splashscreen";
 
   init(context)async {
-    // Provider.of<HomeProvider>(context, listen: false).getAllIngredienti();
     late Timer timer;
     timer = Timer(
       Duration(seconds: 2),
@@ -25,13 +19,22 @@ class SplahScreen extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => DashboardScreen(),
           )));
-    // Navigator.of(context).pushNamed(HomePageScreen.routeName);
+  }
+
+  initRepoPreferiti() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String>? preferiti = prefs.getStringList('preferiti');
+    if(preferiti == null) {
+      var list = [''];
+      await prefs.setStringList('preferiti', list);
+    }     
   }
 
   @override
   Widget build(BuildContext context) {
 
     init(context);
+    initRepoPreferiti();
 
     return Scaffold(
       body: Stack(

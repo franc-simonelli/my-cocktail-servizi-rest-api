@@ -21,13 +21,10 @@ class HttpService {
   /// Request in GET
   Future<ResponseBase> httpGet(String url) async {
     var uri = Uri.parse(_apiUrl + url);
-   
-    print(uri);
     ResponseBase responseBase = ResponseBase();
     
     Response response = await get(uri);
     if (response.statusCode == 401) {
-      print("error 401");
     } else if (response.statusCode == 200) {
       responseBase.success = true;
       responseBase.data = response.body.toString();

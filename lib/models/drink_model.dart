@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_collection_literals
+
 import 'dart:convert';
 
 class Drink {
@@ -7,9 +9,9 @@ class Drink {
   late String? strCategory;
   late String? strAlcoholic;
   late String? strGlass;
-  // late bool cronologia;
+  late bool? isPreferito;
 
-  Drink(this.idDrink, this.strDrink, this.strDrinkThumb, this.strCategory, this.strAlcoholic, this.strGlass);
+  Drink(this.idDrink, this.strDrink, this.strDrinkThumb, this.strCategory, this.strAlcoholic, this.strGlass, this.isPreferito);
 
   Drink.fromJson(Map<String, dynamic> json) {
     idDrink = json['idDrink'];
@@ -18,18 +20,18 @@ class Drink {
     strCategory = json['strCategory'];
     strAlcoholic = json['strAlcoholic'];
     strGlass = json['strGlass'];
-    // cronologia = json['cronologia'];
+    isPreferito = json['isPreferito'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idDrink'] = this.idDrink;
-    data['strDrink'] = this.strDrink;
-    data['strDrinkThumb'] = this.strDrinkThumb;
-    data['strCategory'] = this.strCategory;
-    data['strAlcoholic'] = this.strAlcoholic;
-    data['strGlass'] = this.strGlass;
-    // data['cronologia'] = this.cronologia;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['idDrink'] = idDrink;
+    data['strDrink'] = strDrink;
+    data['strDrinkThumb'] = strDrinkThumb;
+    data['strCategory'] = strCategory;
+    data['strAlcoholic'] = strAlcoholic;
+    data['strGlass'] = strGlass;
+    data['isPreferito'] = isPreferito;
     return data;
   }
 
@@ -40,7 +42,7 @@ class Drink {
         'strCategory': drink.strCategory,
         'strAlcoholic': drink.strAlcoholic,
         'strGlass': drink.strGlass,
-        // 'cronologia': drink.cronologia,
+        'isPreferito': drink.isPreferito,
       };
 
   static String encode(List<Drink> drinks) => json.encode(

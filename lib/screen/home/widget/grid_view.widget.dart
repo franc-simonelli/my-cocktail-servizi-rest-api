@@ -1,16 +1,16 @@
-import 'package:autoproject/screen/home/widget/cocktail_widget.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:provider/provider.dart';
+// ignore_for_file: use_key_in_widget_constructors, prefer_typing_uninitialized_variables, prefer_const_constructors_in_immutables, prefer_const_constructors
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../provider/home_page_provider.dart';
-import '../detail_cocktail_screen.dart';
+import '../dettaglio_screen/detail_cocktail_screen.dart';
+import 'cocktail_widget.dart';
 
 class GridViewWidget extends StatelessWidget {
-  GridViewWidget(this.lista);
+  GridViewWidget(this.lista, this.provider);
 
   final lista;
+  final HomeProvider provider;
   // final tap;
 
   @override
@@ -32,10 +32,6 @@ class GridViewWidget extends StatelessWidget {
             padding: const EdgeInsets.all(15),
             child: CocktailWidget(
               lista[i],
-              // {
-              //   Provider.of<HomeProvider>(context, listen: false).getDrinkById(lista[i].idDrink),
-              //   Navigator.of(context).pushNamed(DetailsCocktailScreen.routeName)
-              // }
             ),
           ),
           onTap: () {

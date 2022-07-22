@@ -1,16 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:autoproject/models/drink_model.dart';
-import 'package:autoproject/provider/home_page_provider.dart';
-import 'package:autoproject/screen/home/widget/cocktail_widget.dart';
-import 'package:autoproject/utils/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../provider/preferiti_provider.dart';
-import '../../utils/bottom_bar_screen.dart';
-import '../home/detail_cocktail_screen.dart';
-import '../widget/immagine_cocktail_widget.dart';
+import '../../provider/home_page_provider.dart';
+import '../../utils/my_theme.dart';
+import '../home/dettaglio_screen/detail_cocktail_screen.dart';
+import 'widget/cocktail_preferito_card_widget.dart';
 
 class PreferitiScreen extends StatelessWidget {
   const PreferitiScreen({ Key? key }) : super(key: key);
@@ -23,25 +18,87 @@ class PreferitiScreen extends StatelessWidget {
     Provider.of<HomeProvider>(context, listen: false).generateListaPreferiti();
 
     return Scaffold(
-      backgroundColor: MyTheme.primary,
-      body: Consumer<HomeProvider>(builder: (ctx, provider, _) {
-        return provider.loading
-        ?
-        Center(child: CircularProgressIndicator(),)
-        :
-        SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
+      backgroundColor: MyTheme.secondary,
+      body: CustomScrollView(
+        slivers: [
+          sliverAppBar(),
+          sliverList(context)
+        ],
+      )
+    );
+  }
+
+  Widget sliverList(context) {
+    return SliverList(
+      delegate: SliverChildListDelegate(
+        [
+          Consumer<HomeProvider>(builder: (ctx, provider, _) {
+            return Column(
               children: [
-                SizedBox(height: 40,),
+                provider.loading 
+                ?
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 60),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width / 2,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade900,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                )
+                :
+                provider.listaPreferiti.isEmpty 
+                ?
+                Padding(
+                  padding: EdgeInsets.only(top: 120),
+                  child: Text("Non ci sono preferiti!", style: MyTheme.theme.textTheme.headlineSmall,))
+                :
                 listViewCocktailPreferiti(provider),
-                SizedBox(height: 60,)
+                SizedBox(height: 60)
               ],
-            ),
+            );
+          })
+        ]
+      ),
+    );
+  }
+
+  Widget sliverAppBar() {
+    return SliverAppBar(
+      bottom: PreferredSize(
+        preferredSize: Size.fromHeight(0.0), // here the desired height
+        child: Align(
+          // alignment: Alignment.bottomCenter,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("I tuoi preferiti", style: TextStyle(color: Colors.grey, fontSize: 40, fontWeight: FontWeight.bold),)
+            ],
           ),
-        );
-      })
+        ),
+      ),
+      expandedHeight: 300,
+      pinned: false,
+      floating: true,
+      backgroundColor: MyTheme.secondary,
+      flexibleSpace: FlexibleSpaceBar(
+        background: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('contents/images/sfondo_preferiti.jpg'),
+              fit: BoxFit.cover
+            ),
+            borderRadius: BorderRadius.circular(30), 
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: MyTheme.gradientAppBar
+            )
+          )
+        ),
+      ),
     );
   }
 
@@ -56,71 +113,11 @@ class PreferitiScreen extends StatelessWidget {
             Provider.of<HomeProvider>(context, listen: false).getDrinkById(provider.listaPreferiti[i].idDrink);
             Navigator.of(context).pushNamed(DetailsCocktailScreen.routeName);
           },
-          child: cardCocktailPreferitoWidget(provider.listaPreferiti[i], context)
+          child: CocktailPreferitocardWidget(drink: provider.listaPreferiti[i])
+          
         );
       })
     );
     
-  }
-
-  Widget cardCocktailPreferitoWidget(Drink drink, context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.width / 2,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: MyTheme.primary,
-          // border: Border.all(color: Colors.grey)
-           boxShadow: [
-              BoxShadow(
-                blurRadius: 2,
-                offset: Offset(-3, -3),
-                color: Colors.grey.shade800
-              ),
-              BoxShadow(
-                blurRadius: 2,
-                offset: Offset(3, 3),
-                color: Colors.black
-              )
-           ]
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(right: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(drink.strDrink, style: MyTheme.theme.textTheme.titleSmall),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: ImmagineCocktaiWidget(height: 130.0, width: 130.0, link: drink.strDrinkThumb,),
-                  ),
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(drink.strCategory!, style: MyTheme.theme.textTheme.labelSmall),
-                        Text(drink.strGlass!, style: MyTheme.theme.textTheme.labelSmall),
-                        Text(drink.strAlcoholic!, style: MyTheme.theme.textTheme.labelSmall),
-                      ],
-                    ),
-                    width: 160,
-                    height: 130,
-                  )
-                ],
-              )
-            ],
-          ),
-        )
-      )
-    );
   }
 }

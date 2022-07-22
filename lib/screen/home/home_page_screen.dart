@@ -1,21 +1,17 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:autoproject/models/ingredienti_model.dart';
-import 'package:autoproject/provider/bottom_navigation_bar_provider.dart';
-import 'package:autoproject/provider/home_page_provider.dart';
-import 'package:autoproject/screen/home/all_cocktail_screen.dart';
-import 'package:autoproject/screen/home/search_cocktails_screen.dart';
-import 'package:autoproject/screen/home/widget/ingrediente_widget.dart';
-import 'package:autoproject/screen/preferiti/preferiti_screen.dart';
-import 'package:autoproject/utils/constants.dart';
-import 'package:autoproject/utils/my_theme.dart';
-import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+
+
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
-import '../../utils/bottom_bar_screen.dart';
+import '../../provider/bottom_navigation_bar_provider.dart';
+import '../../provider/home_page_provider.dart';
+import '../../utils/my_theme.dart';
+import 'all_cocktail_screen.dart';
+import 'search_cocktails_screen.dart';
+import 'widget/ingrediente_widget.dart';
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({ Key? key }) : super(key: key);
@@ -25,10 +21,9 @@ class HomePageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var keyBoard = MediaQuery.of(context).viewInsets.bottom;
     Provider.of<HomeProvider>(context, listen: false).getAllIngredienti();
-    print("key: $keyBoard");
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Consumer2<HomeProvider, BottomNavigationBarProvider>(builder: (ctx, provider, provdier2, _) {
         return LayoutBuilder(
           builder: (context, constraint) {
@@ -45,32 +40,34 @@ class HomePageScreen extends StatelessWidget {
                       
                           Expanded(
                             flex: 2,
-                            child: Column(
-                              children: [
-                                SizedBox(height: 70,),
-                                titleWidget(),
-                                searchCocktailWidget(context),
-                                SizedBox(height: 10),
-                              ],
+                            child: Container(
+                              decoration: BoxDecoration(
+                                // color: Colors.black,
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: AssetImage('contents/images/prova.jpg'),
+                                  opacity: 0.8,
+                                  fit: BoxFit.cover
+                                ),
+                              ),
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 70,),
+                                  titleWidget(),
+                                  searchCocktailWidget(context),
+                                ],
+                              ),
                             ),
                           ),
                           Expanded(
                             flex: 3,
                             child: scrollsWidget(provider),
-                          ),
-                      
-                          
+                          ),        
                         ]
                       )
                     )
                   ),
                 ),
-                
-                // keyBoard == 0.0
-                // ?
-                // BottomBarScreen()
-                // :
-                // Container()
               ]
             );
           }
@@ -87,7 +84,7 @@ class HomePageScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          SizedBox(height: 10),
+          SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
@@ -103,7 +100,17 @@ class HomePageScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Ingredienti', style: MyTheme.theme.textTheme.titleSmall,),
-                Text('View all', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),)
+                Container(
+                  width: 70,
+                  height: 25,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey)
+                  ),
+                  
+                  child: Center(child: Text('View all', style: TextStyle(color: Colors.grey,  fontSize: 15),)),
+                )
+                
                 // Icon(Icons.slideshow_outline, color: Colors.grey,)
               ],
             ),
@@ -116,7 +123,7 @@ class HomePageScreen extends StatelessWidget {
 
   Widget ingredientiWidget(HomeProvider provider) {
     return SizedBox(
-      height: 175,
+      height: 165,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: provider.listaIngredienti.length,
@@ -169,10 +176,12 @@ class HomePageScreen extends StatelessWidget {
           Navigator.of(context).pushNamed(SearchCocktailScreen.routeName);
         },
         child: Container(
+          
           width: MediaQuery.of(context).size.width,
           height: 50,
           decoration: BoxDecoration(
-            color: MyTheme.primary,
+            color: MyTheme.primary.withOpacity(0.8),
+            // color: Colors.transparent,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.grey)
           ),
@@ -186,22 +195,6 @@ class HomePageScreen extends StatelessWidget {
               ],
             ),
           )
-          // child: TextField(  
-          //   cursorColor: Color.fromARGB(255, 21, 21, 26),
-          //   style: TextStyle(fontSize: 18),
-            
-          //   decoration: InputDecoration(
-          //     suffixIcon: Icon(Icons.search, color: Colors.grey,),
-          //     contentPadding: EdgeInsets.all(15),
-          //     hintText: 'Name a Cocktail?',
-          //     hintStyle: GoogleFonts.josefinSans(color: Colors.grey, fontSize: 17),
-          //     border: InputBorder.none,
-          //     focusedBorder: InputBorder.none,
-          //     enabledBorder: InputBorder.none,
-          //     errorBorder: InputBorder.none,
-          //     disabledBorder: InputBorder.none,
-          //   ),
-          // ),
         ),
       ),
     );
@@ -210,24 +203,22 @@ class HomePageScreen extends StatelessWidget {
   Widget titleWidget() {
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("The best", style: MyTheme.theme.textTheme.titleMedium),
-                Text('cocktail guide', style: MyTheme.theme.textTheme.titleMedium)
-              ],
-            ),
-            Container(
-              width: 70,
-              height: 70,
-              child: Image.asset('contents/images/logo.png',  color: Colors.grey,)
-            )
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("The best", style: MyTheme.theme.textTheme.titleMedium),
+              Text('cocktail guide', style: MyTheme.theme.textTheme.titleMedium)
+            ],
+          ),
+          SizedBox(
+            width: 70,
+            height: 70,
+            child: Image.asset('contents/images/logo.png',  color: Colors.grey,)
+          )
+        ],
       ),
     );
   }

@@ -1,15 +1,13 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, must_be_immutable
 
-import 'package:autoproject/provider/dashboard_provider.dart';
-import 'package:autoproject/screen/home/home_page_screen.dart';
-import 'package:autoproject/screen/preferiti/preferiti_screen.dart';
-import 'package:autoproject/utils/bottom_bar_screen.dart';
-import 'package:autoproject/utils/my_theme.dart';
+
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../provider/bottom_navigation_bar_provider.dart';
+import '../../provider/dashboard_provider.dart';
+import '../../utils/my_theme.dart';
+import '../home/home_page_screen.dart';
+import '../preferiti/preferiti_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   DashboardScreen({ Key? key }) : super(key: key);
@@ -20,7 +18,6 @@ class DashboardScreen extends StatelessWidget {
   List<Widget> _widgetScreen = [
     HomePageScreen(),
     PreferitiScreen(),
-    // PreferitiScreen()
   ];
   
 
@@ -28,24 +25,12 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     var keyBoard = MediaQuery.of(context).viewInsets.bottom;
-    print(keyBoard);
 
     return Scaffold(
       body: Consumer<DashboardProvider>(builder: (ctx, provider, _) {
         return Stack(
           children: [
             _widgetScreen[provider.index],
-            // PageView(
-            //   children: [
-            //     HomePageScreen(),
-            //     PreferitiScreen(),
-            //     PreferitiScreen()
-            //   ],
-            //   controller: controller,
-            //   onPageChanged: (int index) {
-            //     provider.changeIndex(index);
-            //   },
-            // ),
             
             keyBoard == 0.0
             ?
@@ -54,32 +39,53 @@ class DashboardScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0),
                 child: Container(
-                  child: CustomNavigationBar(
-                    onTap: (index) {
-                      provider.changeIndex(index);
-                      // controller.jumpToPage(index);
-                    },
-                    currentIndex: provider.index,
-                    iconSize: 30,
-                    backgroundColor: MyTheme.primary,
-                    borderRadius: Radius.circular(20),
-                    strokeColor: MyTheme.secondary,
-                    selectedColor: Colors.white,
-                    unSelectedColor: Colors.grey,
-                    items: [
-                      CustomNavigationBarItem(  
-                        icon: Icon(Icons.home),
-                        // title: Text("Home")
-                      ),
-                      CustomNavigationBarItem(  
-                        icon: Icon(Icons.favorite),
-                        // title: Text("Home")
-                      ),
-                      // CustomNavigationBarItem(  
-                      //   icon: Icon(Icons.home),
-                      //   // title: Text("Home")
-                      // )
-                    ],
+                  decoration: BoxDecoration(
+                    color: MyTheme.secondary,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.grey.shade700),
+                    
+                    gradient: provider.index == 0
+                    ?
+                    LinearGradient(
+                      stops: [0.4, 0.9],
+                        colors: [                          
+                          Colors.grey.shade900,
+                          Colors.grey.shade800
+                        ]
+                    )
+                    :
+                    LinearGradient(
+                      stops: [0.4, 0.9],
+                        colors: [                          
+                          Colors.grey.shade800,
+                          Colors.grey.shade900,
+                        ]
+                    )
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: CustomNavigationBar(
+                      onTap: (index) {
+                        provider.changeIndex(index);
+                      },
+                      currentIndex: provider.index,
+                      iconSize: 30,
+                      backgroundColor: Colors.transparent,
+                      borderRadius: Radius.circular(20),
+                      opacity: 0.5,
+                      strokeColor: MyTheme.secondary,
+                      selectedColor: Colors.white,
+                      unSelectedColor: Colors.grey,
+                      items: [
+                        CustomNavigationBarItem(  
+                          icon: Icon(Icons.home),
+                        ),
+                        CustomNavigationBarItem(  
+                          icon: Icon(Icons.favorite),
+                        ),
+
+                      ],
+                    ),
                   )
                 ),
               ),

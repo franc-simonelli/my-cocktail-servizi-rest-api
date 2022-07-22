@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_collection_literals
+
 class Ingredienti {
   late String strIngredient1;
   late String? image;
@@ -10,9 +12,9 @@ class Ingredienti {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['strIngredient1'] = this.strIngredient1;
-    data['image'] = this.image;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['strIngredient1'] = strIngredient1;
+    data['image'] = image;
     return data;
   }
 }

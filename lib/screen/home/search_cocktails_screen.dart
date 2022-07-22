@@ -1,16 +1,12 @@
-import 'dart:async';
 
-import 'package:autoproject/provider/home_page_provider.dart';
-import 'package:autoproject/screen/home/detail_cocktail_screen.dart';
-import 'package:autoproject/screen/home/widget/search_by_name_widget.dart';
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
+import '../../provider/home_page_provider.dart';
 import '../../utils/my_theme.dart';
+import 'dettaglio_screen/detail_cocktail_screen.dart';
+import 'widget/search_by_name_widget.dart';
 
 class SearchCocktailScreen extends StatelessWidget {
   const SearchCocktailScreen({Key? key}) : super(key: key);
@@ -28,7 +24,7 @@ class SearchCocktailScreen extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: SearchByNameWidget(),
             ),
-            provider.listaDrinkByNameSearch.length < 1
+            provider.listaDrinkByNameSearch.isEmpty
             ?
             listaCronologiaWidget(provider)
             :
@@ -87,7 +83,7 @@ class SearchCocktailScreen extends StatelessWidget {
                   onTap: () {provider.deleteFromCronologia(provider.listaDrinkCronologia[i]);},
                   child: Icon(Icons.close, color: Colors.grey,)
                 ),
-                title: Text("${provider.listaDrinkCronologia[i].strDrink}", style: MyTheme.theme.textTheme.bodyMedium,),
+                title: Text(provider.listaDrinkCronologia[i].strDrink, style: MyTheme.theme.textTheme.bodyMedium,),
               )
             );
             

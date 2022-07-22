@@ -8,7 +8,7 @@ import 'package:autoproject/provider/home_page_provider.dart';
 import 'package:autoproject/provider/preferiti_provider.dart';
 import 'package:autoproject/screen/dashboard/dashboard_screen.dart';
 import 'package:autoproject/screen/home/all_cocktail_screen.dart';
-import 'package:autoproject/screen/home/detail_cocktail_screen.dart';
+import 'package:autoproject/screen/home/dettaglio_screen/detail_cocktail_screen.dart';
 import 'package:autoproject/screen/home/home_page_screen.dart';
 import 'package:autoproject/screen/home/search_cocktails_screen.dart';
 import 'package:autoproject/screen/preferiti/preferiti_screen.dart';

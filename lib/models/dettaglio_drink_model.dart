@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_collection_literals
+
 class DettaglioDrink {
   late String idDrink;
   late String strDrink;
@@ -36,7 +38,7 @@ class DettaglioDrink {
   late String? strMeasure13;
   late String? strMeasure14;
   late String? strMeasure15;
-  late List<String> ingredienti;
+  late bool? isPreferito;
 
 
   DettaglioDrink(
@@ -77,7 +79,7 @@ class DettaglioDrink {
     this.strMeasure13, 
     this.strMeasure14,
     this.strMeasure15,
-    this.ingredienti 
+    this.isPreferito 
   );
 
   DettaglioDrink.fromJson(Map<String, dynamic> json) {
@@ -118,32 +120,34 @@ class DettaglioDrink {
     strMeasure13 = json['strMeasure13'];
     strMeasure14 = json['strMeasure14'];
     strMeasure15 = json['strMeasure15'];
+    isPreferito = json['isPreferito'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idDrink'] = this.idDrink;
-    data['strDrink'] = this.strDrink;
-    data['strDrinkThumb'] = this.strDrinkThumb;
-    data['strCategory'] = this.strCategory;
-    data['strAlcoholic'] = this.strAlcoholic;
-    data['strGlass'] = this.strGlass;
-    data['strInstructionsIT'] = this.strInstructionsIT;
-    data['strIngredient1'] = this.strIngredient1;
-    data['strIngredient2'] = this.strIngredient2;
-    data['strIngredient3'] = this.strIngredient3;
-    data['strIngredient4'] = this.strIngredient4;
-    data['strIngredient5'] = this.strIngredient5;
-    data['strIngredient6'] = this.strIngredient6;
-    data['strIngredient7'] = this.strIngredient7;
-    data['strIngredient8'] = this.strIngredient8;
-    data['strIngredient9'] = this.strIngredient9;
-    data['strIngredient10'] = this.strIngredient10;
-    data['strIngredient11'] = this.strIngredient11;
-    data['strIngredient12'] = this.strIngredient12;
-    data['strIngredient13'] = this.strIngredient13;
-    data['strIngredient14'] = this.strIngredient14;
-    data['strIngredient15'] = this.strIngredient15;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['idDrink'] = idDrink;
+    data['strDrink'] = strDrink;
+    data['strDrinkThumb'] = strDrinkThumb;
+    data['strCategory'] = strCategory;
+    data['strAlcoholic'] = strAlcoholic;
+    data['strGlass'] = strGlass;
+    data['strInstructionsIT'] = strInstructionsIT;
+    data['strIngredient1'] = strIngredient1;
+    data['strIngredient2'] = strIngredient2;
+    data['strIngredient3'] = strIngredient3;
+    data['strIngredient4'] = strIngredient4;
+    data['strIngredient5'] = strIngredient5;
+    data['strIngredient6'] = strIngredient6;
+    data['strIngredient7'] = strIngredient7;
+    data['strIngredient8'] = strIngredient8;
+    data['strIngredient9'] = strIngredient9;
+    data['strIngredient10'] = strIngredient10;
+    data['strIngredient11'] = strIngredient11;
+    data['strIngredient12'] = strIngredient12;
+    data['strIngredient13'] = strIngredient13;
+    data['strIngredient14'] = strIngredient14;
+    data['strIngredient15'] = strIngredient15;
+    data['isPreferito'] = isPreferito;
     return data;
   }
 }
