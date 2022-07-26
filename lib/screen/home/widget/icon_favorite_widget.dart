@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/home_page_provider.dart';
+import '../../../provider/drink_provider.dart';
 
 class IconAnimationWidget extends StatefulWidget {
   const IconAnimationWidget({
@@ -48,9 +48,9 @@ class _IconAnimationWidgetState extends State<IconAnimationWidget> with TickerPr
       onTap: () async{
         widget.drink.isPreferito == true 
         ?
-        Provider.of<HomeProvider>(context, listen: false).removePreferito(widget.drink.idDrink, true, widget.screenName)
+        Provider.of<DrinkProvider>(context, listen: false).removePreferito(widget.drink.idDrink, true, widget.screenName)
         :
-        Provider.of<HomeProvider>(context, listen: false).salvaNeiPreferiti(widget.drink.idDrink, widget.screenName);
+        Provider.of<DrinkProvider>(context, listen: false).salvaNeiPreferiti(widget.drink.idDrink, widget.screenName);
         await _controller.forward();
         _controller.reverse();
       },

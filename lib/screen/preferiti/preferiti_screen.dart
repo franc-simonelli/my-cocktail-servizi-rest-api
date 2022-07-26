@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../provider/home_page_provider.dart';
+import '../../provider/drink_provider.dart';
 import '../../utils/my_theme.dart';
 import '../home/dettaglio_screen/detail_cocktail_screen.dart';
 import 'widget/cocktail_preferito_card_widget.dart';
@@ -15,7 +15,7 @@ class PreferitiScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Provider.of<HomeProvider>(context, listen: false).generateListaPreferiti();
+    Provider.of<DrinkProvider>(context, listen: false).generateListaPreferiti();
 
     return Scaffold(
       backgroundColor: MyTheme.secondary,
@@ -32,7 +32,7 @@ class PreferitiScreen extends StatelessWidget {
     return SliverList(
       delegate: SliverChildListDelegate(
         [
-          Consumer<HomeProvider>(builder: (ctx, provider, _) {
+          Consumer<DrinkProvider>(builder: (ctx, provider, _) {
             return Column(
               children: [
                 provider.loading 
@@ -49,7 +49,7 @@ class PreferitiScreen extends StatelessWidget {
                   ),
                 )
                 :
-                provider.listaPreferiti.isEmpty 
+                provider.drinksPreferiti.isEmpty 
                 ?
                 Padding(
                   padding: EdgeInsets.only(top: 120),
@@ -94,6 +94,7 @@ class PreferitiScreen extends StatelessWidget {
           ),
           child: Container(
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
               gradient: MyTheme.gradientAppBar
             )
           )
@@ -102,18 +103,18 @@ class PreferitiScreen extends StatelessWidget {
     );
   }
 
-  Widget listViewCocktailPreferiti(HomeProvider provider) {
+  Widget listViewCocktailPreferiti(DrinkProvider provider) {
     return ListView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: provider.listaPreferiti.length,
+      itemCount: provider.drinksPreferiti.length,
       itemBuilder: ((context, i) {
         return InkWell(
           onTap: () {
-            Provider.of<HomeProvider>(context, listen: false).getDrinkById(provider.listaPreferiti[i].idDrink);
+            provider.getDrinkById(provider.drinksPreferiti[i].idDrink);
             Navigator.of(context).pushNamed(DetailsCocktailScreen.routeName);
           },
-          child: CocktailPreferitocardWidget(drink: provider.listaPreferiti[i])
+          child: CocktailPreferitocardWidget(drink: provider.drinksPreferiti[i])
           
         );
       })

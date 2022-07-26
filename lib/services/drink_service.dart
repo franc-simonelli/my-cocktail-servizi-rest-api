@@ -1,8 +1,6 @@
 ﻿// ignore_for_file: avoid_function_literals_in_foreach_calls
 
 import 'dart:convert';
-
-import 'package:autoproject/models/dettaglio_drink_model.dart';
 import 'package:autoproject/models/drink_model.dart';
 import 'package:autoproject/models/ingredienti_model.dart';
 import 'package:autoproject/services/http_service.dart';
@@ -53,14 +51,14 @@ class DrinkService {
     }
   }
 
-   Future<List<DettaglioDrink>> getDrinkById(id) async {
+   Future<List<Drink>> getDrinkById(id) async {
     var response = await _httpService.httpGet("/v1/1/lookup.php?i=$id");
 
     if (response.success == true) {
-      List<DettaglioDrink> drink = [];
+      List<Drink> drink = [];
       (jsonDecode(response.data)['drinks'] as List<dynamic>).forEach((element) {
         // element.image = 'https://www.thecocktaildb.com/images/ingredients/' + element[0].value +  '-Small.png';
-        drink.add(DettaglioDrink.fromJson(element));
+        drink.add(Drink.fromJson(element));
 
       });
       return drink;

@@ -28,6 +28,12 @@ class SplahScreen extends StatelessWidget {
       var list = [''];
       await prefs.setStringList('preferiti', list);
     }     
+
+    final List<String>? ingredientiPreferiti = prefs.getStringList('IngredientiPreferiti');
+    if(ingredientiPreferiti == null) {
+      var list = [''];
+      await prefs.setStringList('IngredientiPreferiti', list);
+    }   
   }
 
   @override

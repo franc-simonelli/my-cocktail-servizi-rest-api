@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../provider/home_page_provider.dart';
+import '../../../provider/drink_provider.dart';
 import '../../../utils/my_theme.dart';
 import '../widget/icon_favorite_widget.dart';
 import 'widget/sliver_list_details_cocktail_widget.dart';
@@ -16,7 +16,7 @@ class DetailsCocktailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyTheme.secondary,
-      body: Consumer<HomeProvider>(builder: (ctx, provider, _) {
+      body: Consumer<DrinkProvider>(builder: (ctx, provider, _) {
         return provider.loading 
         ?
         Center(
@@ -34,7 +34,7 @@ class DetailsCocktailScreen extends StatelessWidget {
     );
   }
 
-  Widget sliverAppBarDetails(HomeProvider provider) {
+  Widget sliverAppBarDetails(DrinkProvider provider) {
     return SliverAppBar(
       actions: [
         Padding(
@@ -59,23 +59,24 @@ class DetailsCocktailScreen extends StatelessWidget {
               // crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(provider.dettaglioDrink.strCategory, style: TextStyle(color: Colors.grey, fontSize: 16)),
-                Text(provider.dettaglioDrink.strGlass, style: TextStyle(color: Colors.grey, fontSize: 16)),
-                Text(provider.dettaglioDrink.strAlcoholic, style: TextStyle(color: Colors.grey, fontSize: 16))
+                Text(provider.dettaglioDrink.strCategory!, style: TextStyle(color: Colors.grey, fontSize: 16)),
+                Text(provider.dettaglioDrink.strGlass!, style: TextStyle(color: Colors.grey, fontSize: 16)),
+                Text(provider.dettaglioDrink.strAlcoholic!, style: TextStyle(color: Colors.grey, fontSize: 16))
               ],
-            )
+            ),
+            SizedBox(height: 5,),
           ],
         ),
       ),
       expandedHeight: 400,
-      backgroundColor: Colors.black,
+      backgroundColor: MyTheme.secondary,
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
           padding: const EdgeInsets.all(0.0),
           child: Container(
             decoration: BoxDecoration(
               // gradient: MyTheme.gradientAppBar,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(30),
               image: DecorationImage(
                 image: NetworkImage('${provider.dettaglioDrink.strDrinkThumb}'),
                 fit: BoxFit.cover
@@ -83,7 +84,8 @@ class DetailsCocktailScreen extends StatelessWidget {
             ),
             child: Container(
               decoration: BoxDecoration(
-                gradient: MyTheme.gradientAppBar
+                gradient: MyTheme.gradientAppBar,
+                borderRadius: BorderRadius.circular(30),
               ),
             )  
           ),

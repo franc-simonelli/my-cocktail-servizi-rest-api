@@ -6,17 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/home_page_provider.dart';
+import '../../../provider/drink_provider.dart';
 import '../../../utils/my_theme.dart';
 
-class SearchByNameWidget extends StatefulWidget {
-  SearchByNameWidget({Key? key}) : super(key: key);
+class SearhCocktailByNameWidget extends StatefulWidget {
+  SearhCocktailByNameWidget({Key? key}) : super(key: key);
 
   @override
-  State<SearchByNameWidget> createState() => _SearchByNameWidgetState();
+  State<SearhCocktailByNameWidget> createState() => _SearhCocktailByNameWidgetState();
 }
 
-class _SearchByNameWidgetState extends State<SearchByNameWidget> {
+class _SearhCocktailByNameWidgetState extends State<SearhCocktailByNameWidget> {
   final _searchController = TextEditingController();
 
   Timer? _debounce;
@@ -35,7 +35,7 @@ class _SearchByNameWidgetState extends State<SearchByNameWidget> {
   }
 
   void searchText() {
-    Provider.of<HomeProvider>(context, listen: false).searchByName(_searchController.text);
+    Provider.of<DrinkProvider>(context, listen: false).searchByName(_searchController.text);
   }
 
   @override

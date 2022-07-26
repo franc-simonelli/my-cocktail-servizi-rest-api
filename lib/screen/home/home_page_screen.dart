@@ -1,15 +1,15 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-
-
-
+import 'package:autoproject/screen/home/all_ingredienti/view_all_ingredienti_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../provider/bottom_navigation_bar_provider.dart';
-import '../../provider/home_page_provider.dart';
+import '../../provider/dashboard_provider.dart';
+import '../../provider/drink_provider.dart';
+import '../../provider/ingredienti_provider.dart';
 import '../../utils/my_theme.dart';
-import 'all_cocktail_screen.dart';
+import 'all_cocktail/all_cocktail_screen.dart';
 import 'search_cocktails_screen.dart';
 import 'widget/ingrediente_widget.dart';
 
@@ -21,15 +21,14 @@ class HomePageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Provider.of<HomeProvider>(context, listen: false).getAllIngredienti();
+    Provider.of<IngredientiProvider>(context, listen: false).getAllIngredienti();
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Consumer2<HomeProvider, BottomNavigationBarProvider>(builder: (ctx, provider, provdier2, _) {
+      body: Consumer2<IngredientiProvider, BottomNavigationBarProvider>(builder: (ctx, provider, provdier2, _) {
         return LayoutBuilder(
           builder: (context, constraint) {
             return Stack(
               children: [
-
                 SingleChildScrollView(  
                   child: ConstrainedBox(
                     constraints: BoxConstraints(minHeight: constraint.maxHeight),
@@ -37,7 +36,6 @@ class HomePageScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                      
                           Expanded(
                             flex: 2,
                             child: Container(
@@ -61,7 +59,7 @@ class HomePageScreen extends StatelessWidget {
                           ),
                           Expanded(
                             flex: 3,
-                            child: scrollsWidget(provider),
+                            child: scrollsWidget(provider, context),
                           ),        
                         ]
                       )
@@ -76,7 +74,7 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-  Widget scrollsWidget(HomeProvider provider) {
+  Widget scrollsWidget(IngredientiProvider provider, context) {
     return Container(
       decoration: BoxDecoration(
         color: MyTheme.secondary,
@@ -85,57 +83,117 @@ class HomePageScreen extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: 5),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
+          titleBasiWidget(context),
+          provider.ingredientiPreferiti.isEmpty
+          ?
+          SizedBox(
+            height: 175,
             child: Row(
               children: [
-                Text('Basi alcoliche principali', style: MyTheme.theme.textTheme.titleSmall,)
-              ],
-            ),
-          ),
-          basiAlcolicheWidget(provider),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Ingredienti', style: MyTheme.theme.textTheme.titleSmall,),
-                Container(
-                  width: 70,
-                  height: 25,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.grey)
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Container(
+                    width: 110,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      gradient: MyTheme.gradientIngrediente,
+                      boxShadow: MyTheme.shadowIngrediente
+                    ),
+                    child: Center(
+                      child: InkWell(
+                        onTap: () {
+                          Provider.of<DashboardProvider>(context, listen: false).changeIndex(2);
+                        },
+                        child: Icon(Icons.add_circle_sharp, color: Colors.grey, size: 40,)
+                      ),
+                    ),
                   ),
-                  
-                  child: Center(child: Text('View all', style: TextStyle(color: Colors.grey,  fontSize: 15),)),
-                )
-                
-                // Icon(Icons.slideshow_outline, color: Colors.grey,)
+                ),
               ],
             ),
-          ),
+          )
+          :
+          basiAlcolicheWidget(provider),
+          titleIngredientiWidget(context),
           ingredientiWidget(provider),
         ],
       ),
     );
   }
 
-  Widget ingredientiWidget(HomeProvider provider) {
+  Widget titleIngredientiWidget(context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Ingredienti', style: MyTheme.theme.textTheme.titleSmall,),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pushNamed(ViewAllIngredientiScreen.routeName);
+            },
+            child: Container(
+              width: 70,
+              height: 25,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey)
+              ),
+              
+              child: Center(child: Text('View all', style: TextStyle(color: Colors.grey,  fontSize: 15),)),
+            ),
+          )
+          
+          // Icon(Icons.slideshow_outline, color: Colors.grey,)
+        ],
+      ),
+    );
+  }
+
+  Widget titleBasiWidget(context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Ingredienti preferiti', style: MyTheme.theme.textTheme.titleSmall,),
+          Container(
+            width: 80,
+            height: 25,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey)
+            ),
+            
+            child: Center(
+              child: InkWell(
+                onTap: () {
+                  _showDialogEliminaIngredienti(context);
+                  // Provider.of<IngredientiProvider>(context, listen: false).deleteAllBasiPreferite();
+                },                      
+                child: Text('Delete All', style: TextStyle(color: Colors.grey,  fontSize: 15),))
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget ingredientiWidget(IngredientiProvider provider) {
     return SizedBox(
       height: 165,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: provider.listaIngredienti.length,
+        itemCount: provider.ingredienti.length,
         itemBuilder: (context, i){
           return Padding(
             padding: const EdgeInsets.all(15.0),
             child: InkWell(
               onTap: () {
-                provider.getDrinkByIngrediente(provider.listaIngredienti[i]);
+                Provider.of<DrinkProvider>(context, listen: false).getDrinkByIngrediente(provider.ingredienti[i]);
                 Navigator.of(context).pushNamed(AllCocktailScreen.routeName);
               },
-              child: IngredienteWidget(provider.listaIngredienti[i])
+              child: IngredienteWidget(provider.ingredienti[i], 70.0, 70.0, false)
             ),
           );
         }
@@ -144,21 +202,21 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-  Widget basiAlcolicheWidget(HomeProvider provider) {
+  Widget basiAlcolicheWidget(IngredientiProvider provider) {
     return SizedBox(
       height: 175,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: provider.basiAlcoliche.length,
+        itemCount: provider.ingredientiPreferiti.length,
         itemBuilder: (context, i){
           return Padding(
             padding: const EdgeInsets.all(15.0),
             child: InkWell(
               onTap: () {
-                provider.getDrinkByIngrediente(provider.basiAlcoliche[i]);
+                Provider.of<DrinkProvider>(context, listen: false).getDrinkByIngrediente(provider.ingredientiPreferiti[i]);
                 Navigator.of(context).pushNamed(AllCocktailScreen.routeName);
               },
-              child: IngredienteWidget(provider.basiAlcoliche[i]),
+              child: IngredienteWidget(provider.ingredientiPreferiti[i], 70.0, 70.0, false),
             ),
           );
         }
@@ -172,7 +230,7 @@ class HomePageScreen extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       child: InkWell(
         onTap: () {
-          Provider.of<HomeProvider>(context, listen: false).initSearch();
+          Provider.of<DrinkProvider>(context, listen: false).initSearch();
           Navigator.of(context).pushNamed(SearchCocktailScreen.routeName);
         },
         child: Container(
@@ -222,6 +280,43 @@ class HomePageScreen extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> _showDialogEliminaIngredienti(context) async {
+  return showDialog<void>(
+    
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: MyTheme.primary,
+        title: Text('Attenzione', style: MyTheme.theme.textTheme.titleMedium,),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text('Sei sicuro di voler eliminare i tuoi ingredienti preferiti?', style: MyTheme.theme.textTheme.headlineSmall),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Annulla', style: TextStyle(color: Colors.grey),),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: const Text('Conferma', style: TextStyle(color: Colors.grey)),
+            onPressed: () {
+              Provider.of<IngredientiProvider>(context, listen: false).deleteAllBasiPreferite();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 }
 
 

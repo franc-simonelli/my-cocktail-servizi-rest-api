@@ -1,17 +1,15 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_typing_uninitialized_variables, prefer_const_constructors_in_immutables, prefer_const_constructors
 
+import 'package:autoproject/screen/home/widget/ingrediente_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../provider/home_page_provider.dart';
-import '../dettaglio_screen/detail_cocktail_screen.dart';
-import 'cocktail_widget.dart';
+import '../../../../provider/drink_provider.dart';
+import '../../all_cocktail/all_cocktail_screen.dart';
 
-class GridViewWidget extends StatelessWidget {
-  GridViewWidget(this.lista, this.provider);
+class GridViewIngredientiWidget extends StatelessWidget {
+  GridViewIngredientiWidget(this.lista);
 
   final lista;
-  final HomeProvider provider;
-  // final tap;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ class GridViewWidget extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: 3,
         mainAxisSpacing: 0,
         crossAxisSpacing: 0,
         childAspectRatio: 1
@@ -30,13 +28,16 @@ class GridViewWidget extends StatelessWidget {
         return InkWell(
           child: Padding(
             padding: const EdgeInsets.all(15),
-            child: CocktailWidget(
+            child: IngredienteWidget(
               lista[i],
+              50.0,
+              50.0,
+              false
             ),
           ),
           onTap: () {
-            Provider.of<HomeProvider>(context, listen: false).getDrinkById(lista[i].idDrink);
-            Navigator.of(context).pushNamed(DetailsCocktailScreen.routeName);
+            Provider.of<DrinkProvider>(context, listen: false).getDrinkByIngrediente(lista[i]);
+            Navigator.of(context).pushNamed(AllCocktailScreen.routeName);
           },
         );
       }

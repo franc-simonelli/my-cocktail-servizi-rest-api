@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MyTheme {
 
+  
+
   // static Color primary = Color.fromARGB(255, 30, 31, 37); 
   // static Color secondary = Color.fromARGB(255, 21, 21, 26); 
   static Color primary = Color.fromARGB(255, 29, 29, 29);
@@ -13,7 +15,7 @@ class MyTheme {
   static Color cocktailCard = Color.fromARGB(255, 17, 17, 20);
 
   static LinearGradient gradientAppBar = LinearGradient(
-    begin: Alignment.bottomCenter,
+    begin: Alignment.bottomRight,
     colors: [
       Colors.black,
       Colors.black.withOpacity(.3)

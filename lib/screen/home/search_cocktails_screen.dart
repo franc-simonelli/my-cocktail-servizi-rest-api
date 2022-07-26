@@ -3,10 +3,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../provider/home_page_provider.dart';
+import '../../provider/drink_provider.dart';
 import '../../utils/my_theme.dart';
 import 'dettaglio_screen/detail_cocktail_screen.dart';
-import 'widget/search_by_name_widget.dart';
+import 'widget/search_cocktail_by_name_widget.dart';
 
 class SearchCocktailScreen extends StatelessWidget {
   const SearchCocktailScreen({Key? key}) : super(key: key);
@@ -16,15 +16,15 @@ class SearchCocktailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<HomeProvider>(builder: (ctx, provider, _) {
+      body: Consumer<DrinkProvider>(builder: (ctx, provider, _) {
         return Column(
           children: [
             SizedBox(height: 70),
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: SearchByNameWidget(),
+              child: SearhCocktailByNameWidget(),
             ),
-            provider.listaDrinkByNameSearch.isEmpty
+            provider.drinksByNameSearch.isEmpty
             ?
             listaCronologiaWidget(provider)
             :
@@ -35,25 +35,25 @@ class SearchCocktailScreen extends StatelessWidget {
     );
   }
 
-  Expanded listaSearchByName(HomeProvider provider) {
+  Expanded listaSearchByName(DrinkProvider provider) {
     return Expanded(
       child: Container(
         // color: Colors.red,
         color: MyTheme.secondary,
         child: ListView.builder(
-          itemCount: provider.listaDrinkByNameSearch.length,
+          itemCount: provider.drinksByNameSearch.length,
           itemBuilder: (context, i){
             return Padding(
               padding: const EdgeInsets.all(0.0),
               child: InkWell(
                 onTap: () {
-                  provider.saveSceltaInStorage(provider.listaDrinkByNameSearch[i]);
-                  provider.getDrinkById(provider.listaDrinkByNameSearch[i].idDrink);
+                  provider.saveSceltaInStorage(provider.drinksByNameSearch[i]);
+                  provider.getDrinkById(provider.drinksByNameSearch[i].idDrink);
                   Navigator.of(context).pushNamed(DetailsCocktailScreen.routeName);
                 },
                 child: ListTile(
                   
-                  title: Text(provider.listaDrinkByNameSearch[i].strDrink, style: MyTheme.theme.textTheme.bodyMedium,),
+                  title: Text(provider.drinksByNameSearch[i].strDrink, style: MyTheme.theme.textTheme.bodyMedium,),
                 )
               ),
             );
@@ -64,26 +64,26 @@ class SearchCocktailScreen extends StatelessWidget {
     );
   }
 
-  Expanded listaCronologiaWidget(HomeProvider provider) {
+  Expanded listaCronologiaWidget(DrinkProvider provider) {
     return Expanded(
       child: Container(
         // color: Colors.red,
         color: MyTheme.secondary,
         child: ListView.builder(
-          itemCount: provider.listaDrinkCronologia.length,
+          itemCount: provider.cronologiaDrinks.length,
           itemBuilder: (context, i){
             return InkWell(
               onTap: () {
-                provider.getDrinkById(provider.listaDrinkCronologia[i].idDrink);
+                provider.getDrinkById(provider.cronologiaDrinks[i].idDrink);
                 Navigator.of(context).pushNamed(DetailsCocktailScreen.routeName);
               },
 
               child: ListTile(
                 leading: InkWell(
-                  onTap: () {provider.deleteFromCronologia(provider.listaDrinkCronologia[i]);},
+                  onTap: () {provider.deleteFromCronologia(provider.cronologiaDrinks[i]);},
                   child: Icon(Icons.close, color: Colors.grey,)
                 ),
-                title: Text(provider.listaDrinkCronologia[i].strDrink, style: MyTheme.theme.textTheme.bodyMedium,),
+                title: Text(provider.cronologiaDrinks[i].strDrink, style: MyTheme.theme.textTheme.bodyMedium,),
               )
             );
             

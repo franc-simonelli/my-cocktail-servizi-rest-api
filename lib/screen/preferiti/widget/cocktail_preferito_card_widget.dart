@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../provider/home_page_provider.dart';
+import '../../../provider/drink_provider.dart';
 import '../../../utils/my_theme.dart';
 import '../../widget/immagine_cocktail_widget.dart';
 
@@ -16,7 +16,7 @@ class CocktailPreferitocardWidget extends StatelessWidget {
     return Dismissible(
       key: Key(drink.idDrink),
       onDismissed: (direction) {
-        Provider.of<HomeProvider>(context, listen: false).removePreferito(drink.idDrink, false, 'preferiti');
+        Provider.of<DrinkProvider>(context, listen: false).removePreferito(drink.idDrink, false, 'preferiti');
 
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('${drink.strDrink} rimosso')));

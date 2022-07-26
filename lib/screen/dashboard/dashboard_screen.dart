@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, must_be_immutable
 
 
+import 'package:autoproject/screen/settings/settings_screen.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ class DashboardScreen extends StatelessWidget {
   List<Widget> _widgetScreen = [
     HomePageScreen(),
     PreferitiScreen(),
+    SettingsScreen()
   ];
   
 
@@ -44,18 +46,30 @@ class DashboardScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Colors.grey.shade700),
                     
-                    gradient: provider.index == 0
+                    gradient: 
+                    provider.index == 0
                     ?
                     LinearGradient(
-                      stops: [0.4, 0.9],
+                      stops: [0.3, 0.9],
                         colors: [                          
                           Colors.grey.shade900,
                           Colors.grey.shade800
                         ]
                     )
                     :
+                    provider.index == 1
+                    ?
                     LinearGradient(
-                      stops: [0.4, 0.9],
+                      stops: [0.3, 0.5, 0.9],
+                        colors: [                          
+                          Colors.grey.shade800,
+                          Colors.grey.shade900,
+                          Colors.grey.shade800,
+                        ]
+                    )
+                    :
+                    LinearGradient(
+                      stops: [0.3, 0.9],
                         colors: [                          
                           Colors.grey.shade800,
                           Colors.grey.shade900,
@@ -82,6 +96,9 @@ class DashboardScreen extends StatelessWidget {
                         ),
                         CustomNavigationBarItem(  
                           icon: Icon(Icons.favorite),
+                        ),
+                        CustomNavigationBarItem(  
+                          icon: Icon(Icons.settings),
                         ),
 
                       ],

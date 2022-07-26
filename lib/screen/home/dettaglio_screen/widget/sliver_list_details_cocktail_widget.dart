@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_constructors_in_immutables, prefer_const_constructors
-
 import 'package:autoproject/utils/my_theme.dart';
 import 'package:flutter/material.dart';
-import '../../../../provider/home_page_provider.dart';
+import '../../../../provider/drink_provider.dart';
 
 class SliverListDetailsCocktail extends StatefulWidget {
   SliverListDetailsCocktail({Key? key, this.provider}) : super(key: key);
@@ -82,7 +81,7 @@ class _SliverListDetailsCocktailState extends State<SliverListDetailsCocktail> w
     );
   }
 
-  Widget listaIngredienti(HomeProvider provider) {
+  Widget listaIngredienti(DrinkProvider provider) {
     return Row(
       children: [
         Column(
