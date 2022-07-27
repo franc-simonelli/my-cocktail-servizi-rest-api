@@ -4,9 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../provider/drink_provider.dart';
-import '../../../../utils/my_theme.dart';
 
 class FiltroAllCocktailWidget extends StatefulWidget {
   const FiltroAllCocktailWidget({Key? key}) : super(key: key);
@@ -50,7 +48,7 @@ class _FiltroAllCocktailWidgetState extends State<FiltroAllCocktailWidget> {
       opacity: 0.9,
       child: Container(
         decoration: BoxDecoration(
-          color: MyTheme.theme.secondaryHeaderColor,
+          color: Theme.of(context).splashColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.grey)
         ),

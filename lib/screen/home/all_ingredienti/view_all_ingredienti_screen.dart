@@ -6,22 +6,25 @@ import '../../../utils/my_theme.dart';
 import 'widget/filtro_all_ingredienti_widget.dart';
 import 'widget/grid_view_ingredienti_widget.dart';
 
-class ViewAllIngredientiScreen extends StatelessWidget {
+class ViewAllIngredientiScreen extends StatefulWidget {
   const ViewAllIngredientiScreen({Key? key}) : super(key: key);
 
   static const String routeName = "/viewAllIngredienti";
 
-  
+  @override
+  State<ViewAllIngredientiScreen> createState() => _ViewAllIngredientiScreenState();
+}
 
+class _ViewAllIngredientiScreenState extends State<ViewAllIngredientiScreen> {
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: MyTheme.theme.primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: CustomScrollView(
         physics: ScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
-          sliverAppBarAllIngredienti(),
+          sliverAppBarAllIngredienti(context),
           sliverListAllIngredienti(),
         ]
       )
@@ -29,6 +32,7 @@ class ViewAllIngredientiScreen extends StatelessWidget {
   }
 
   Widget sliverListAllIngredienti() {
+    int cross = 3;
     return SliverList(
       delegate: SliverChildListDelegate(
         [
@@ -39,7 +43,8 @@ class ViewAllIngredientiScreen extends StatelessWidget {
             :
             Column(
               children: [
-                GridViewIngredientiWidget(provider.ingredientiFiltratiByName)
+                GridViewIngredientiWidget(provider.ingredientiFiltratiByName, cross, 50.0, 50.0, false),
+                
               ]
             );
           }),
@@ -48,9 +53,9 @@ class ViewAllIngredientiScreen extends StatelessWidget {
     );
   }
 
-  Widget sliverAppBarAllIngredienti() {
+  Widget sliverAppBarAllIngredienti(context) {
     return SliverAppBar(
-      backgroundColor: MyTheme.theme.primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       pinned: false,
       snap: false,
       floating: true,

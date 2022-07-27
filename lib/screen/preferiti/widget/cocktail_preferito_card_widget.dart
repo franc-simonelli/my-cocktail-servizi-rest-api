@@ -28,8 +28,10 @@ class CocktailPreferitocardWidget extends StatelessWidget {
           height: MediaQuery.of(context).size.width / 2,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: MyTheme.theme.splashColor,
-            boxShadow: MyTheme.shadowCardPreferiti
+            border: Border.all(color: Theme.of(context).splashColor),
+            // color: Theme.of(context).splashColor,
+            color: Colors.black,
+            boxShadow: MyTheme.shadowIngrediente
           ),
           child: Padding(
             padding: const EdgeInsets.only(right: 15),
@@ -38,7 +40,7 @@ class CocktailPreferitocardWidget extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(drink.strDrink, style: MyTheme.theme.textTheme.titleSmall),
+                  child: Text(drink.strDrink, style: Theme.of(context).textTheme.titleSmall, ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,9 +54,9 @@ class CocktailPreferitocardWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text(drink.strCategory!, style: MyTheme.theme.textTheme.labelSmall),
-                          Text(drink.strGlass!, style: MyTheme.theme.textTheme.labelSmall),
-                          Text(drink.strAlcoholic!, style: MyTheme.theme.textTheme.labelSmall),
+                          Text(drink.strCategory!, style: Theme.of(context).textTheme.labelSmall),
+                          Text(drink.strGlass!, style: Theme.of(context).textTheme.labelSmall),
+                          Text(drink.strAlcoholic!, style: Theme.of(context).textTheme.labelSmall),
                         ],
                       ),
                       width: 160,

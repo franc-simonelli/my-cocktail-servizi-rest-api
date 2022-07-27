@@ -16,11 +16,11 @@ class AllCocktailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyTheme.theme.primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: CustomScrollView(
         physics: ScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
-          sliverAppBarAllCocktail(),
+          sliverAppBarAllCocktail(context),
           sliverListAllCocktail(),
         ]
       )
@@ -74,9 +74,9 @@ class AllCocktailScreen extends StatelessWidget {
     );
   }
 
-  Widget sliverAppBarAllCocktail() {
+  Widget sliverAppBarAllCocktail(context) {
     return SliverAppBar(
-      backgroundColor: MyTheme.theme.primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       pinned: false,
       snap: false,
       floating: true,

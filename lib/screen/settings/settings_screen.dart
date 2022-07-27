@@ -4,9 +4,8 @@ import 'package:autoproject/screen/home/widget/ingrediente_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../provider/ingredienti_provider.dart';
-import '../../utils/my_theme.dart';
+import '../home/all_ingredienti/widget/grid_view_ingredienti_widget.dart';
 import 'widget/filter_ingredienti_widget.dart';
-import 'widget/grid_view_ingredienti_preferiti_widget.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       key: _drawerKey,
-      backgroundColor: MyTheme.theme.primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: Consumer<IngredientiProvider>(builder: (ctx, provider, _) {
         return GestureDetector(
           onPanUpdate: (details) {
@@ -36,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
           },
           child: CustomScrollView(
             slivers: [
-              sliverAppBar(),
+              sliverAppBar(context),
               sliverList(context, provider)
             ],
           )
@@ -51,7 +50,7 @@ class SettingsScreen extends StatelessWidget {
       return Container(
         width: MediaQuery.of(context).size.width/2,
         child: Drawer(
-          backgroundColor: MyTheme.theme.splashColor,
+          backgroundColor: Theme.of(context).splashColor,
           child: Padding(
           padding: const EdgeInsets.only(top: 15, bottom: 15),
           child: Column(
@@ -89,11 +88,11 @@ class SettingsScreen extends StatelessWidget {
     });
   }
 
-  Widget sezionePossibiliScelteWidget(IngredientiProvider provider) {
+  Widget sezionePossibiliScelteWidget(IngredientiProvider provider, context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
-        color: MyTheme.theme.primaryColor
+        color: Theme.of(context).primaryColor
       ),
       
       child: Padding(
@@ -138,7 +137,7 @@ class SettingsScreen extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.grey.shade900,
+          color: Colors.black,
           boxShadow: [
              BoxShadow(
               blurRadius: 2,
@@ -162,12 +161,12 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget sliverAppBar() {
+  Widget sliverAppBar(context) {
     return SliverAppBar(
       actions: <Widget>[
         Icon(Icons.menu, color: Colors.transparent,)
       ],
-      backgroundColor: MyTheme.theme.primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(0.0), // here the desired height
         child: Align(
@@ -216,7 +215,7 @@ class SettingsScreen extends StatelessWidget {
             children: [
               provider.ingredientiPreferiti.length > 0
               ?
-              GridViewIngredientiPreferitiWidget(provider.ingredientiPreferiti, 2)
+              GridViewIngredientiWidget(provider.ingredientiPreferiti, 2, 100.0, 100.0, true)
               :
               Padding(
                 padding: const EdgeInsets.only(top: 100),
@@ -224,9 +223,9 @@ class SettingsScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width - 50,
                   child: Column(
                     children: [
-                      Text("Qui puoi aggiungere degli ingredienti alla tua lista preferiti!", style: MyTheme.theme.textTheme.titleMedium,),
+                      Text("Qui puoi aggiungere degli ingredienti alla tua lista preferiti!", style: Theme.of(context).textTheme.titleMedium,),
                       SizedBox(height: 10,),
-                      Text("Fai swipe verso sinistra per aprire il menu laterale, e clicca sull'ingrediente che vuo aggiungere", style: MyTheme.theme.textTheme.titleSmall),
+                      Text("Fai swipe verso sinistra per aprire il menu laterale, e clicca sull'ingrediente che vuo aggiungere", style: Theme.of(context).textTheme.titleSmall),
                       SizedBox(height: 10,),
                       Icon(Icons.swipe_left, color: Colors.grey, size: 45,)
                     ],

@@ -7,17 +7,21 @@ import '../../../../provider/drink_provider.dart';
 import '../../all_cocktail/all_cocktail_screen.dart';
 
 class GridViewIngredientiWidget extends StatelessWidget {
-  GridViewIngredientiWidget(this.lista);
+  GridViewIngredientiWidget(this.lista, this.cross, this.widthImage, this.heightImage, this.optionDelete);
 
   final lista;
+  final cross;
+  final widthImage;
+  final heightImage;
+  final optionDelete;
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: cross,
         mainAxisSpacing: 0,
         crossAxisSpacing: 0,
         childAspectRatio: 1
@@ -30,9 +34,9 @@ class GridViewIngredientiWidget extends StatelessWidget {
             padding: const EdgeInsets.all(15),
             child: IngredienteWidget(
               lista[i],
-              50.0,
-              50.0,
-              false
+              widthImage,
+              heightImage,
+              optionDelete
             ),
           ),
           onTap: () {

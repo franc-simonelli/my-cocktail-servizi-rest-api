@@ -26,7 +26,7 @@ class CocktailWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            nomeCocktailWidget(),
+            nomeCocktailWidget(context),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -51,12 +51,12 @@ class CocktailWidget extends StatelessWidget {
   }
 
 
-  Widget nomeCocktailWidget() {
+  Widget nomeCocktailWidget(context) {
     return Padding(
       padding: const EdgeInsets.all(10.0, ),
       child: Row(
         children: [
-          Expanded(child: Text(drink.strDrink, style: MyTheme.theme.textTheme.labelSmall))
+          Expanded(child: Text(drink.strDrink, maxLines: 2, style: Theme.of(context).textTheme.labelSmall))
         ],
       ),
     );

@@ -2,7 +2,6 @@
 
 import 'package:autoproject/screen/home/all_ingredienti/view_all_ingredienti_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../provider/bottom_navigation_bar_provider.dart';
@@ -24,6 +23,7 @@ class HomePageScreen extends StatelessWidget {
 
     Provider.of<IngredientiProvider>(context, listen: false).getAllIngredienti();
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Consumer2<IngredientiProvider, BottomNavigationBarProvider>(builder: (ctx, provider, provdier2, _) {
         return LayoutBuilder(
           builder: (context, constraint) {
@@ -40,7 +40,8 @@ class HomePageScreen extends StatelessWidget {
                             flex: 2,
                             child: Container( 
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(0),
+                                color: Colors.black,
                                 image: DecorationImage(
                                   image: AssetImage('contents/images/prova.jpg'),
                                   opacity: 0.8,
@@ -50,7 +51,7 @@ class HomePageScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   SizedBox(height: 70,),
-                                  titleWidget(),
+                                  titleWidget(context),
                                   searchCocktailWidget(context),
                                 ],
                               ),
@@ -58,7 +59,13 @@ class HomePageScreen extends StatelessWidget {
                           ),
                           Expanded(
                             flex: 3,
-                            child: scrollsWidget(provider, context),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: scrollsWidget(provider, context)
+                            ),
                           ), 
                              
                         ]
@@ -130,7 +137,7 @@ class HomePageScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Ingredienti', style: MyTheme.theme.textTheme.titleSmall,),
+          Text('Ingredienti', style: Theme.of(context).textTheme.titleSmall,),
           InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(ViewAllIngredientiScreen.routeName);
@@ -159,7 +166,7 @@ class HomePageScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Ingredienti preferiti', style: MyTheme.theme.textTheme.titleSmall,),
+          Text('Ingredienti preferiti', style: Theme.of(context).textTheme.titleSmall,),
           Container(
             width: 80,
             height: 25,
@@ -241,7 +248,7 @@ class HomePageScreen extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: 50,
           decoration: BoxDecoration(
-            color: MyTheme.theme.splashColor.withOpacity(0.8),
+            color: Theme.of(context).splashColor.withOpacity(0.8),
             // color: Colors.transparent,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.grey)
@@ -261,7 +268,7 @@ class HomePageScreen extends StatelessWidget {
     );
   }
 
-  Widget titleWidget() {
+  Widget titleWidget(context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Row(
@@ -270,8 +277,8 @@ class HomePageScreen extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("The best", style: MyTheme.theme.textTheme.titleMedium),
-              Text('cocktail guide', style: MyTheme.theme.textTheme.titleMedium)
+              Text("The best", style: Theme.of(context).textTheme.titleMedium),
+              Text('cocktail guide', style: Theme.of(context).textTheme.titleMedium)
             ],
           ),
           SizedBox(
@@ -291,12 +298,12 @@ class HomePageScreen extends StatelessWidget {
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
       return AlertDialog(
-        backgroundColor: MyTheme.theme.splashColor,
-        title: Text('Attenzione', style: MyTheme.theme.textTheme.titleMedium,),
+        backgroundColor: Theme.of(context).splashColor,
+        title: Text('Attenzione', style: Theme.of(context).textTheme.titleMedium,),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              Text('Sei sicuro di voler eliminare i tuoi ingredienti preferiti?', style: MyTheme.theme.textTheme.headlineSmall),
+              Text('Sei sicuro di voler eliminare i tuoi ingredienti preferiti?', style: Theme.of(context).textTheme.headlineSmall),
             ],
           ),
         ),

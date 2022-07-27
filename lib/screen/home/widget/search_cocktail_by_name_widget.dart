@@ -1,13 +1,10 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import '../../../provider/drink_provider.dart';
-import '../../../utils/my_theme.dart';
 
 class SearhCocktailByNameWidget extends StatefulWidget {
   SearhCocktailByNameWidget({Key? key}) : super(key: key);
@@ -49,7 +46,7 @@ class _SearhCocktailByNameWidgetState extends State<SearhCocktailByNameWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: MyTheme.theme.splashColor,
+        color: Theme.of(context).splashColor,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.grey)
       ),

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../../provider/ingredienti_provider.dart';
-import '../../../../utils/my_theme.dart';
 
 class FiltroAllIngredientiWidget extends StatefulWidget {
   const FiltroAllIngredientiWidget({Key? key}) : super(key: key);
@@ -50,7 +49,7 @@ class _FiltroAllIngredientiWidgetState extends State<FiltroAllIngredientiWidget>
       opacity: 0.9,
       child: Container(
         decoration: BoxDecoration(
-          color: MyTheme.theme.splashColor,
+          color: Theme.of(context).splashColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.grey),
         ),

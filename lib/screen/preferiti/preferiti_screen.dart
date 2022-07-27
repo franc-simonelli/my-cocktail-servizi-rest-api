@@ -18,10 +18,10 @@ class PreferitiScreen extends StatelessWidget {
     Provider.of<DrinkProvider>(context, listen: false).generateListaPreferiti();
 
     return Scaffold(
-      backgroundColor: MyTheme.theme.primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: CustomScrollView(
         slivers: [
-          sliverAppBar(),
+          sliverAppBar(context),
           sliverList(context)
         ],
       )
@@ -53,7 +53,7 @@ class PreferitiScreen extends StatelessWidget {
                 ?
                 Padding(
                   padding: EdgeInsets.only(top: 120),
-                  child: Text("Non ci sono preferiti!", style: MyTheme.theme.textTheme.headlineSmall,))
+                  child: Text("Non ci sono preferiti!", style: Theme.of(context).textTheme.headlineSmall,))
                 :
                 listViewCocktailPreferiti(provider),
                 SizedBox(height: 60)
@@ -65,7 +65,7 @@ class PreferitiScreen extends StatelessWidget {
     );
   }
 
-  Widget sliverAppBar() {
+  Widget sliverAppBar(context) {
     return SliverAppBar(
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(0.0), // here the desired height
@@ -82,7 +82,7 @@ class PreferitiScreen extends StatelessWidget {
       expandedHeight: 300,
       pinned: false,
       floating: true,
-      backgroundColor: MyTheme.theme.primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
           decoration: BoxDecoration(

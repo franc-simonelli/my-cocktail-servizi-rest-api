@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import '../../../models/ingredienti_model.dart';
 import '../../../provider/ingredienti_provider.dart';
@@ -26,9 +25,11 @@ class IngredienteWidget extends StatelessWidget {
       width: 110,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: MyTheme.theme.splashColor),
-        gradient:MediaQuery.platformBrightnessOf(context) == Brightness.light ? MyTheme.gradientIngredienteLight : MyTheme.gradientIngrediente,
+        border: Border.all(color: Theme.of(context).splashColor),
+        color: Colors.black,
+        // gradient: MediaQuery.platformBrightnessOf(context) == Brightness.light ? MyTheme.gradientIngredienteLight : MyTheme.gradientIngrediente,
         // gradient: MyTheme.gradientIngrediente,
+        // boxShadow: MediaQuery.platformBrightnessOf(context) == Brightness.light ? MyTheme.shadowIngredienteLight : MyTheme.shadowIngrediente
         boxShadow: MyTheme.shadowIngrediente
       ),
       child: Column(
@@ -39,7 +40,7 @@ class IngredienteWidget extends StatelessWidget {
             padding: const EdgeInsets.all(15.0, ),
             child: Row(
               children: [
-                Expanded(child: Text(ingrediente.strIngredient1, style: MyTheme.theme.textTheme.labelSmall, maxLines: 1,)),
+                Expanded(child: Text(ingrediente.strIngredient1, style: Theme.of(context).textTheme.labelSmall, maxLines: 1,)),
                 optionDelete
                 ?
                 removeButtonWidget(context, ingrediente)
@@ -76,7 +77,7 @@ class IngredienteWidget extends StatelessWidget {
         height: 30,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.grey.shade900,
+          color: Colors.black,
           boxShadow: [
             BoxShadow(
               blurRadius: 1,
@@ -85,8 +86,8 @@ class IngredienteWidget extends StatelessWidget {
             ),
             BoxShadow(
               blurRadius: 1,
-              offset: Offset(2, 2),
-              color: Colors.black
+              offset: Offset(1, 1),
+              color: Colors.grey.shade900
             )
           ]
         ),

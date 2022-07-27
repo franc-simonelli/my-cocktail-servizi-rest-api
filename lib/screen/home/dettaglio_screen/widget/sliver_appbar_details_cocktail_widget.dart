@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_constructors_in_immutables, prefer_const_constructors
 import 'package:autoproject/utils/my_theme.dart';
 import 'package:flutter/material.dart';
-import '../../../../provider/drink_provider.dart';
 import '../../widget/icon_favorite_widget.dart';
 
 class SliverAppBarDetailsCocktail extends StatefulWidget {
@@ -79,7 +78,7 @@ class _SliverAppBarDetailsCocktailState extends State<SliverAppBarDetailsCocktai
         ),
       ),
       expandedHeight: 400,
-      backgroundColor: MyTheme.theme.primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
           padding: const EdgeInsets.all(0.0),

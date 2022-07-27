@@ -6,7 +6,6 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../provider/dashboard_provider.dart';
-import '../../utils/my_theme.dart';
 import '../home/home_page_screen.dart';
 import '../preferiti/preferiti_screen.dart';
 
@@ -42,39 +41,40 @@ class DashboardScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: MyTheme.theme.primaryColor,
+                    // color: MyTheme.theme.primaryColor,
+                    color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.grey.shade700),
+                    border: Border.all(color: Colors.grey.shade500),
                     
-                    gradient: 
-                    provider.index == 0
-                    ?
-                    LinearGradient(
-                      stops: [0.3, 0.9],
-                        colors: [                          
-                          Colors.grey.shade900,
-                          Colors.grey.shade800
-                        ]
-                    )
-                    :
-                    provider.index == 1
-                    ?
-                    LinearGradient(
-                      stops: [0.3, 0.5, 0.9],
-                        colors: [                          
-                          Colors.grey.shade800,
-                          Colors.grey.shade900,
-                          Colors.grey.shade800,
-                        ]
-                    )
-                    :
-                    LinearGradient(
-                      stops: [0.3, 0.9],
-                        colors: [                          
-                          Colors.grey.shade800,
-                          Colors.grey.shade900,
-                        ]
-                    )
+                    // gradient: 
+                    // provider.index == 0
+                    // ?
+                    // LinearGradient(
+                    //   stops: [0.3, 0.9],
+                    //     colors: [                          
+                    //       Colors.grey.shade900,
+                    //       Colors.grey.shade800
+                    //     ]
+                    // )
+                    // :
+                    // provider.index == 1
+                    // ?
+                    // LinearGradient(
+                    //   stops: [0.3, 0.5, 0.9],
+                    //     colors: [                          
+                    //       Colors.grey.shade800,
+                    //       Colors.grey.shade900,
+                    //       Colors.grey.shade800,
+                    //     ]
+                    // )
+                    // :
+                    // LinearGradient(
+                    //   stops: [0.3, 0.9],
+                    //     colors: [                          
+                    //       Colors.grey.shade800,
+                    //       Colors.grey.shade900,
+                    //     ]
+                    // )
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(0.0),
@@ -87,9 +87,10 @@ class DashboardScreen extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                       borderRadius: Radius.circular(20),
                       opacity: 0.5,
-                      strokeColor: MyTheme.theme.primaryColor,
+                      // strokeColor: MyTheme.theme.primaryColor,
+                      strokeColor: Theme.of(context).primaryColor,
                       selectedColor: Colors.white,
-                      unSelectedColor: Colors.grey,
+                      unSelectedColor: Colors.grey.shade700,
                       items: [
                         CustomNavigationBarItem(  
                           icon: Icon(Icons.home),

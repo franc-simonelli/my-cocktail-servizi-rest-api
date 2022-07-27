@@ -16,7 +16,7 @@ class DetailsCocktailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyTheme.theme.primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: Consumer<DrinkProvider>(builder: (ctx, provider, _) {
         return provider.loading 
         ?
@@ -35,7 +35,7 @@ class DetailsCocktailScreen extends StatelessWidget {
     );
   }
 
-  Widget sliverAppBarDetails(DrinkProvider provider) {
+  Widget sliverAppBarDetails(DrinkProvider provider, context) {
     return SliverAppBar(
       actions: [
         Padding(
@@ -73,7 +73,7 @@ class DetailsCocktailScreen extends StatelessWidget {
         ),
       ),
       expandedHeight: 400,
-      backgroundColor: MyTheme.theme.primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
           padding: const EdgeInsets.all(0.0),

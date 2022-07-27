@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, unused_local_variable
 import 'dart:async';
-import 'package:autoproject/utils/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,7 +42,9 @@ class SplahScreen extends StatelessWidget {
     initRepoPreferiti();
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Stack(
+
         children: [
           Container(
             decoration: BoxDecoration(
@@ -54,7 +55,7 @@ class SplahScreen extends StatelessWidget {
             padding: const EdgeInsets.only(top: 150),
             child: Align(
               alignment: Alignment.topCenter,
-              child: Text('D  R  I  N  K', style: MyTheme.theme.textTheme.titleLarge,)
+              child: Text('D  R  I  N  K', style: Theme.of(context).textTheme.titleLarge,)
             ),
           ),
           
@@ -62,7 +63,7 @@ class SplahScreen extends StatelessWidget {
             padding: const EdgeInsets.only(top: 200),
             child: Align(
               alignment: Alignment.topCenter,
-              child: Text('COCKTAIL', style: MyTheme.theme.textTheme.titleMedium)
+              child: Text('COCKTAIL', style: Theme.of(context).textTheme.titleMedium)
             ),
           )
         ],

@@ -4,7 +4,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../provider/drink_provider.dart';
-import '../../utils/my_theme.dart';
 import 'dettaglio_screen/detail_cocktail_screen.dart';
 import 'widget/search_cocktail_by_name_widget.dart';
 
@@ -26,20 +25,20 @@ class SearchCocktailScreen extends StatelessWidget {
             ),
             provider.drinksByNameSearch.isEmpty
             ?
-            listaCronologiaWidget(provider)
+            listaCronologiaWidget(provider, context)
             :
-            listaSearchByName(provider),
+            listaSearchByName(provider, context),
           ],
         );
       })
     );
   }
 
-  Expanded listaSearchByName(DrinkProvider provider) {
+  Expanded listaSearchByName(DrinkProvider provider, context) {
     return Expanded(
       child: Container(
         // color: Colors.red,
-        color: MyTheme.theme.splashColor,
+        color: Theme.of(context).splashColor,
         child: ListView.builder(
           itemCount: provider.drinksByNameSearch.length,
           itemBuilder: (context, i){
@@ -53,7 +52,7 @@ class SearchCocktailScreen extends StatelessWidget {
                 },
                 child: ListTile(
                   
-                  title: Text(provider.drinksByNameSearch[i].strDrink, style: MyTheme.theme.textTheme.bodyMedium,),
+                  title: Text(provider.drinksByNameSearch[i].strDrink, style: Theme.of(context).textTheme.bodyMedium,),
                 )
               ),
             );
@@ -64,11 +63,11 @@ class SearchCocktailScreen extends StatelessWidget {
     );
   }
 
-  Expanded listaCronologiaWidget(DrinkProvider provider) {
+  Expanded listaCronologiaWidget(DrinkProvider provider, context) {
     return Expanded(
       child: Container(
         // color: Colors.red,
-        color: MyTheme.theme.primaryColor,
+        color: Theme.of(context).primaryColor,
         child: ListView.builder(
           itemCount: provider.cronologiaDrinks.length,
           itemBuilder: (context, i){
@@ -83,7 +82,7 @@ class SearchCocktailScreen extends StatelessWidget {
                   onTap: () {provider.deleteFromCronologia(provider.cronologiaDrinks[i]);},
                   child: Icon(Icons.close, color: Colors.grey,)
                 ),
-                title: Text(provider.cronologiaDrinks[i].strDrink, style: MyTheme.theme.textTheme.bodyMedium,),
+                title: Text(provider.cronologiaDrinks[i].strDrink, style: Theme.of(context).textTheme.bodyMedium,),
               )
             );
             

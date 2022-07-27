@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_constructors_in_immutables, prefer_const_constructors
-import 'package:autoproject/utils/my_theme.dart';
 import 'package:flutter/material.dart';
 import '../../../../provider/drink_provider.dart';
 
@@ -136,15 +135,15 @@ class _SliverListDetailsCocktailState extends State<SliverListDetailsCocktail> w
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: MyTheme.theme.secondaryHeaderColor,
-          title: Text('Informazioni', style: MyTheme.theme.textTheme.titleSmall,),
+          backgroundColor: Theme.of(context).secondaryHeaderColor,
+          title: Text('Informazioni', style: Theme.of(context).textTheme.titleSmall,),
           content: SingleChildScrollView(
             child: ListBody(
               children: [
-                Text('1 oncia = 30 ml', style: MyTheme.theme.textTheme.bodyMedium,),
-                Text('0.5 oncia = 15 ml', style: MyTheme.theme.textTheme.bodyMedium),
-                Text('1/3 oncia = 10 ml', style: MyTheme.theme.textTheme.bodyMedium),
-                Text('2/3 oncia = 20 ml', style: MyTheme.theme.textTheme.bodyMedium),
+                Text('1 oncia = 30 ml', style: Theme.of(context).textTheme.bodyMedium,),
+                Text('0.5 oncia = 15 ml', style: Theme.of(context).textTheme.bodyMedium),
+                Text('1/3 oncia = 10 ml', style: Theme.of(context).textTheme.bodyMedium),
+                Text('2/3 oncia = 20 ml', style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
           ),

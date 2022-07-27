@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/ingredienti_provider.dart';
-import '../../../utils/my_theme.dart';
 
 class FilterIngredientiWidget extends StatefulWidget {
   const FilterIngredientiWidget({Key? key}) : super(key: key);
@@ -50,7 +49,7 @@ class _FilterIngredientiWidgetState extends State<FilterIngredientiWidget> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: MyTheme.theme.splashColor,
+          color: Theme.of(context).splashColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.grey)
         ),
