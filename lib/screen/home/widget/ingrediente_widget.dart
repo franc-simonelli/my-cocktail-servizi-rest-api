@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import '../../../models/ingredienti_model.dart';
 import '../../../provider/ingredienti_provider.dart';
@@ -16,15 +17,22 @@ class IngredienteWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+   // var brightness = MediaQueryData.fromWindow(WidgetsBinding.instance.window).platformBrightness;
+
+
+
     return Container(
       width: 110,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: MyTheme.primary),
-        gradient: MyTheme.gradientIngrediente,
+        border: Border.all(color: MyTheme.theme.splashColor),
+        gradient:MediaQuery.platformBrightnessOf(context) == Brightness.light ? MyTheme.gradientIngredienteLight : MyTheme.gradientIngrediente,
+        // gradient: MyTheme.gradientIngrediente,
         boxShadow: MyTheme.shadowIngrediente
       ),
       child: Column(
+        
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(

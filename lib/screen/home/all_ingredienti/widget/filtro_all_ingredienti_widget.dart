@@ -50,7 +50,7 @@ class _FiltroAllIngredientiWidgetState extends State<FiltroAllIngredientiWidget>
       opacity: 0.9,
       child: Container(
         decoration: BoxDecoration(
-          color: MyTheme.primary,
+          color: MyTheme.theme.splashColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.grey),
         ),

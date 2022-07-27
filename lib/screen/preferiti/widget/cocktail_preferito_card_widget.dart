@@ -28,8 +28,8 @@ class CocktailPreferitocardWidget extends StatelessWidget {
           height: MediaQuery.of(context).size.width / 2,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: MyTheme.primary,
-             boxShadow: MyTheme.shadowCardPreferiti
+            color: MyTheme.theme.splashColor,
+            boxShadow: MyTheme.shadowCardPreferiti
           ),
           child: Padding(
             padding: const EdgeInsets.only(right: 15),

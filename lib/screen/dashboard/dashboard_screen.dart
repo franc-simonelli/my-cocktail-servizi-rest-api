@@ -42,7 +42,7 @@ class DashboardScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: MyTheme.secondary,
+                    color: MyTheme.theme.primaryColor,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Colors.grey.shade700),
                     
@@ -87,7 +87,7 @@ class DashboardScreen extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                       borderRadius: Radius.circular(20),
                       opacity: 0.5,
-                      strokeColor: MyTheme.secondary,
+                      strokeColor: MyTheme.theme.primaryColor,
                       selectedColor: Colors.white,
                       unSelectedColor: Colors.grey,
                       items: [

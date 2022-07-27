@@ -17,7 +17,7 @@ class ViewAllIngredientiScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: MyTheme.secondary,
+      backgroundColor: MyTheme.theme.primaryColor,
       body: CustomScrollView(
         physics: ScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: [
@@ -50,7 +50,7 @@ class ViewAllIngredientiScreen extends StatelessWidget {
 
   Widget sliverAppBarAllIngredienti() {
     return SliverAppBar(
-      backgroundColor: MyTheme.secondary,
+      backgroundColor: MyTheme.theme.primaryColor,
       pinned: false,
       snap: false,
       floating: true,

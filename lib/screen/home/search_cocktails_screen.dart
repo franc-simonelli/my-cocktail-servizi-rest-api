@@ -39,7 +39,7 @@ class SearchCocktailScreen extends StatelessWidget {
     return Expanded(
       child: Container(
         // color: Colors.red,
-        color: MyTheme.secondary,
+        color: MyTheme.theme.splashColor,
         child: ListView.builder(
           itemCount: provider.drinksByNameSearch.length,
           itemBuilder: (context, i){
@@ -68,7 +68,7 @@ class SearchCocktailScreen extends StatelessWidget {
     return Expanded(
       child: Container(
         // color: Colors.red,
-        color: MyTheme.secondary,
+        color: MyTheme.theme.primaryColor,
         child: ListView.builder(
           itemCount: provider.cronologiaDrinks.length,
           itemBuilder: (context, i){

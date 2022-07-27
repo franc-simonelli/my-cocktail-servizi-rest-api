@@ -50,7 +50,7 @@ class _FilterIngredientiWidgetState extends State<FilterIngredientiWidget> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: MyTheme.primary,
+          color: MyTheme.theme.splashColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.grey)
         ),

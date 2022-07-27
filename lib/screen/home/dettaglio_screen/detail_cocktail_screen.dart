@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../provider/drink_provider.dart';
 import '../../../utils/my_theme.dart';
 import '../widget/icon_favorite_widget.dart';
+import 'widget/sliver_appbar_details_cocktail_widget.dart';
 import 'widget/sliver_list_details_cocktail_widget.dart';
 
 class DetailsCocktailScreen extends StatelessWidget {
@@ -15,7 +16,7 @@ class DetailsCocktailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyTheme.secondary,
+      backgroundColor: MyTheme.theme.primaryColor,
       body: Consumer<DrinkProvider>(builder: (ctx, provider, _) {
         return provider.loading 
         ?
@@ -25,7 +26,7 @@ class DetailsCocktailScreen extends StatelessWidget {
         :
         CustomScrollView(
           slivers: [
-            sliverAppBarDetails(provider),
+            SliverAppBarDetailsCocktail(provider: provider),
             SliverListDetailsCocktail(provider: provider)
           ],
         );
@@ -47,7 +48,7 @@ class DetailsCocktailScreen extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
               child: Row(
                 children: [
                   Expanded(child: Text(provider.dettaglioDrink.strDrink, style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),)),
@@ -55,21 +56,24 @@ class DetailsCocktailScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10,),
-            Row(
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(provider.dettaglioDrink.strCategory!, style: TextStyle(color: Colors.grey, fontSize: 16)),
-                Text(provider.dettaglioDrink.strGlass!, style: TextStyle(color: Colors.grey, fontSize: 16)),
-                Text(provider.dettaglioDrink.strAlcoholic!, style: TextStyle(color: Colors.grey, fontSize: 16))
-              ],
+            Padding(
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 0),
+              child: Row(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(provider.dettaglioDrink.strCategory!, style: TextStyle(color: Colors.grey, fontSize: 16)),
+                  Text(provider.dettaglioDrink.strGlass!, style: TextStyle(color: Colors.grey, fontSize: 16)),
+                  Text(provider.dettaglioDrink.strAlcoholic!, style: TextStyle(color: Colors.grey, fontSize: 16))
+                ],
+              ),
             ),
             SizedBox(height: 5,),
           ],
         ),
       ),
       expandedHeight: 400,
-      backgroundColor: MyTheme.secondary,
+      backgroundColor: MyTheme.theme.primaryColor,
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
           padding: const EdgeInsets.all(0.0),

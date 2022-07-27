@@ -18,7 +18,7 @@ class PreferitiScreen extends StatelessWidget {
     Provider.of<DrinkProvider>(context, listen: false).generateListaPreferiti();
 
     return Scaffold(
-      backgroundColor: MyTheme.secondary,
+      backgroundColor: MyTheme.theme.primaryColor,
       body: CustomScrollView(
         slivers: [
           sliverAppBar(),
@@ -82,7 +82,7 @@ class PreferitiScreen extends StatelessWidget {
       expandedHeight: 300,
       pinned: false,
       floating: true,
-      backgroundColor: MyTheme.secondary,
+      backgroundColor: MyTheme.theme.primaryColor,
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
           decoration: BoxDecoration(

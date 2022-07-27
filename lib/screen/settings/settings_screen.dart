@@ -21,7 +21,7 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       key: _drawerKey,
-      backgroundColor: MyTheme.secondary,
+      backgroundColor: MyTheme.theme.primaryColor,
       body: Consumer<IngredientiProvider>(builder: (ctx, provider, _) {
         return GestureDetector(
           onPanUpdate: (details) {
@@ -51,7 +51,7 @@ class SettingsScreen extends StatelessWidget {
       return Container(
         width: MediaQuery.of(context).size.width/2,
         child: Drawer(
-          backgroundColor: MyTheme.primary,
+          backgroundColor: MyTheme.theme.splashColor,
           child: Padding(
           padding: const EdgeInsets.only(top: 15, bottom: 15),
           child: Column(
@@ -93,7 +93,7 @@ class SettingsScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
-        color: MyTheme.secondary
+        color: MyTheme.theme.primaryColor
       ),
       
       child: Padding(
@@ -167,7 +167,7 @@ class SettingsScreen extends StatelessWidget {
       actions: <Widget>[
         Icon(Icons.menu, color: Colors.transparent,)
       ],
-      backgroundColor: MyTheme.secondary,
+      backgroundColor: MyTheme.theme.primaryColor,
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(0.0), // here the desired height
         child: Align(
@@ -245,96 +245,3 @@ class SettingsScreen extends StatelessWidget {
 
 
 
-// VERSIONE ORIGINALE
-// child: provider.isOpen
-// ?
-// Column(
-//   children: [
-//     SizedBox(height: 50),
-//     Expanded(
-//       child: Row(
-//         children: [
-//           Expanded(
-//             child: GridViewIngredientiPreferitiWidget(provider.ingredientiPreferiti, 1),
-//           ),
-//           provider.loading
-//           ?
-//           CircularProgressIndicator()
-//           :
-//           Expanded(
-//             child: sezionePossibiliScelteWidget(provider)
-//           )
-//         ],
-//       ),
-//     ),
-//     SizedBox(height: 70),
-//   ],
-// )
-// :
-// Column(
-//   children: [
-//     SizedBox(height: 50),
-//     Expanded(
-//       child: GridViewIngredientiPreferitiWidget(provider.ingredientiPreferiti, 2),
-//     ),
-//     SizedBox(height: 70),
-//   ],
-// ),
-
-
-// --------------------------------------------------------------------------------------------------
-
-// VERSIONE CON SLIVER
-
-
-// Widget sliverList(context) {
-//   return Consumer<HomeProvider>(builder: (ctx, provider, _) {
-//     return SliverList(
-//       delegate: SliverChildListDelegate(
-//         [
-//           provider.isOpen
-//           ?
-//           Column(
-//             children: [
-//               SizedBox(height: 50),
-//               Expanded(
-//                 child: Row(
-//                   children: [
-//                     Expanded(
-//                       child: GridViewIngredientiPreferitiWidget(provider.ingredientiPreferiti, 1),
-//                     ),
-//                     provider.loading
-//                     ?
-//                     CircularProgressIndicator()
-//                     :
-//                     Expanded(
-//                       child: sezionePossibiliScelteWidget(provider)
-//                     )
-//                   ],
-//                 ),
-//               ),
-//               SizedBox(height: 70),
-//             ],
-//           )
-//           :
-//           Column(
-//             children: [
-//               SizedBox(height: 50),
-//               Expanded(
-//                 child: GridViewIngredientiPreferitiWidget(provider.ingredientiPreferiti, 2),
-//               ),
-//               SizedBox(height: 70),
-//             ],
-//           ),
-//         ]
-//       )
-//     );
-//   });
-// } 
-
-// child: CustomScrollView(
-//   slivers: [
-//     sliverAppBar(),
-//     // sliverList(context)
-//   ],
-// )

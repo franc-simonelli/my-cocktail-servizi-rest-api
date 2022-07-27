@@ -49,7 +49,7 @@ class _SearhCocktailByNameWidgetState extends State<SearhCocktailByNameWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: MyTheme.primary,
+        color: MyTheme.theme.splashColor,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.grey)
       ),

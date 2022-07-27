@@ -17,8 +17,9 @@ class _SliverListDetailsCocktailState extends State<SliverListDetailsCocktail> w
 
    @override
   void initState() {
+   
     _controller = AnimationController(duration: const Duration(milliseconds: 500), vsync: this);
-    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
+     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
     _controller.addListener(() {
     setState(() {});
     });
@@ -135,7 +136,7 @@ class _SliverListDetailsCocktailState extends State<SliverListDetailsCocktail> w
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: MyTheme.primary,
+          backgroundColor: MyTheme.theme.secondaryHeaderColor,
           title: Text('Informazioni', style: MyTheme.theme.textTheme.titleSmall,),
           content: SingleChildScrollView(
             child: ListBody(

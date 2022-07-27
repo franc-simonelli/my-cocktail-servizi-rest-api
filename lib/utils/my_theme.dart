@@ -9,8 +9,9 @@ class MyTheme {
 
   // static Color primary = Color.fromARGB(255, 30, 31, 37); 
   // static Color secondary = Color.fromARGB(255, 21, 21, 26); 
-  static Color primary = Color.fromARGB(255, 29, 29, 29);
-  static Color secondary =  Color.fromARGB(255, 17, 17, 17);
+  static Color secondary = Color.fromARGB(255, 29, 29, 29);
+  static Color primary =  Color.fromARGB(255, 17, 17, 17);
+
   static Color ingredienteCard = Color.fromARGB(255, 15, 15, 15);
   static Color cocktailCard = Color.fromARGB(255, 17, 17, 20);
 
@@ -35,8 +36,17 @@ class MyTheme {
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: [
-      MyTheme.primary,
+      MyTheme.secondary,
       Color.fromARGB(255, 20, 20, 20)
+    ], 
+  );
+
+  static LinearGradient gradientIngredienteLight = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Colors.amber,
+      Colors.red
     ], 
   );
 
@@ -67,6 +77,7 @@ class MyTheme {
   ];
 
   static List<BoxShadow> shadowIngrediente = [
+
     BoxShadow(
       blurRadius: 1,
       offset: Offset(-2, -2),
@@ -84,6 +95,8 @@ class MyTheme {
     // fontFamily: 'RobotoMono',
     backgroundColor: primary,
     scaffoldBackgroundColor: primary,
+    primaryColor: primary,
+    splashColor: secondary,
 
     textTheme: TextTheme(
       titleLarge: GoogleFonts.josefinSans(textStyle: TextStyle(color: Colors.grey, fontSize: 40)),

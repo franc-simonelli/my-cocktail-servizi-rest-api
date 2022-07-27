@@ -50,7 +50,7 @@ class _FiltroAllCocktailWidgetState extends State<FiltroAllCocktailWidget> {
       opacity: 0.9,
       child: Container(
         decoration: BoxDecoration(
-          color: MyTheme.primary,
+          color: MyTheme.theme.secondaryHeaderColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.grey)
         ),

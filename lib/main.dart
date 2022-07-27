@@ -20,6 +20,7 @@ import 'package:autoproject/services/drink_service.dart';
 import 'package:autoproject/services/http_service.dart';
 import 'package:autoproject/utils/my_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_simple_dependency_injection/injector.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +46,7 @@ void main() {
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: MyTheme.secondary
+      systemNavigationBarColor: MyTheme.theme.primaryColor
     )
   );
 }

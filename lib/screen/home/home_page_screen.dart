@@ -2,6 +2,7 @@
 
 import 'package:autoproject/screen/home/all_ingredienti/view_all_ingredienti_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../provider/bottom_navigation_bar_provider.dart';
@@ -23,7 +24,6 @@ class HomePageScreen extends StatelessWidget {
 
     Provider.of<IngredientiProvider>(context, listen: false).getAllIngredienti();
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Consumer2<IngredientiProvider, BottomNavigationBarProvider>(builder: (ctx, provider, provdier2, _) {
         return LayoutBuilder(
           builder: (context, constraint) {
@@ -38,9 +38,8 @@ class HomePageScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             flex: 2,
-                            child: Container(
+                            child: Container( 
                               decoration: BoxDecoration(
-                                // color: Colors.black,
                                 borderRadius: BorderRadius.circular(10),
                                 image: DecorationImage(
                                   image: AssetImage('contents/images/prova.jpg'),
@@ -60,7 +59,8 @@ class HomePageScreen extends StatelessWidget {
                           Expanded(
                             flex: 3,
                             child: scrollsWidget(provider, context),
-                          ),        
+                          ), 
+                             
                         ]
                       )
                     )
@@ -75,9 +75,12 @@ class HomePageScreen extends StatelessWidget {
   }
 
   Widget scrollsWidget(IngredientiProvider provider, context) {
+
+    // var brightness = SchedulerBinding.instance.window.platformBrightness;
+    // bool isLightMode = brightness == Brightness.light ? true : false;
+
     return Container(
       decoration: BoxDecoration(
-        color: MyTheme.secondary,
         borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
       ),
       child: Column(
@@ -193,7 +196,7 @@ class HomePageScreen extends StatelessWidget {
                 Provider.of<DrinkProvider>(context, listen: false).getDrinkByIngrediente(provider.ingredienti[i]);
                 Navigator.of(context).pushNamed(AllCocktailScreen.routeName);
               },
-              child: IngredienteWidget(provider.ingredienti[i], 70.0, 70.0, false)
+              child: IngredienteWidget(provider.ingredienti[i], 80.0, 80.0, false)
             ),
           );
         }
@@ -216,7 +219,7 @@ class HomePageScreen extends StatelessWidget {
                 Provider.of<DrinkProvider>(context, listen: false).getDrinkByIngrediente(provider.ingredientiPreferiti[i]);
                 Navigator.of(context).pushNamed(AllCocktailScreen.routeName);
               },
-              child: IngredienteWidget(provider.ingredientiPreferiti[i], 70.0, 70.0, false),
+              child: IngredienteWidget(provider.ingredientiPreferiti[i], 80.0, 80.0, false),
             ),
           );
         }
@@ -238,7 +241,7 @@ class HomePageScreen extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: 50,
           decoration: BoxDecoration(
-            color: MyTheme.primary.withOpacity(0.8),
+            color: MyTheme.theme.splashColor.withOpacity(0.8),
             // color: Colors.transparent,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.grey)
@@ -288,7 +291,7 @@ class HomePageScreen extends StatelessWidget {
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
       return AlertDialog(
-        backgroundColor: MyTheme.primary,
+        backgroundColor: MyTheme.theme.splashColor,
         title: Text('Attenzione', style: MyTheme.theme.textTheme.titleMedium,),
         content: SingleChildScrollView(
           child: ListBody(
