@@ -13,7 +13,7 @@ class DashboardScreen extends StatelessWidget {
   DashboardScreen({ Key? key }) : super(key: key);
 
   static const String routeName = "dashboard";
-  final PageController controller = PageController(initialPage: 0);
+  // final PageController controller = PageController(initialPage: 0);
 
   List<Widget> _widgetScreen = [
     HomePageScreen(),

@@ -20,7 +20,7 @@ class GridViewCocktailWidget extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 0,
         crossAxisSpacing: 0,
-        childAspectRatio: 1
+        childAspectRatio: 1.0
       ),
       itemCount: lista.length,
       itemBuilder: (BuildContext context, int i) {

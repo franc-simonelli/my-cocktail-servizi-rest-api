@@ -20,26 +20,26 @@ class SplahScreen extends StatelessWidget {
           )));
   }
 
-  initRepoPreferiti() async {
-    final prefs = await SharedPreferences.getInstance();
-    final List<String>? preferiti = prefs.getStringList('preferiti');
-    if(preferiti == null) {
-      var list = [''];
-      await prefs.setStringList('preferiti', list);
-    }     
+  // initRepoPreferiti() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final List<String>? preferiti = prefs.getStringList('preferiti');
+  //   if(preferiti == null) {
+  //     var list = [''];
+  //     await prefs.setStringList('preferiti', list);
+  //   }     
 
-    final List<String>? ingredientiPreferiti = prefs.getStringList('IngredientiPreferiti');
-    if(ingredientiPreferiti == null) {
-      var list = [''];
-      await prefs.setStringList('IngredientiPreferiti', list);
-    }   
-  }
+  //   final List<String>? ingredientiPreferiti = prefs.getStringList('IngredientiPreferiti');
+  //   if(ingredientiPreferiti == null) {
+  //     var list = [''];
+  //     await prefs.setStringList('IngredientiPreferiti', list);
+  //   }   
+  // }
 
   @override
   Widget build(BuildContext context) {
 
     init(context);
-    initRepoPreferiti();
+    // initRepoPreferiti();
 
     return Scaffold(
       backgroundColor: Colors.transparent,
