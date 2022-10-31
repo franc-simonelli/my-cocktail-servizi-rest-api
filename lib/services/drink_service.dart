@@ -31,21 +31,15 @@ class DrinkService {
   }
 
   Future<List<Drink>> getDrinkByIngrediente(ingrediente) async {
-    // Fimber.i("FaqsService - getFaqs started");
     var response = await _httpService.httpGet("v1/1/filter.php?i=$ingrediente");
     if (response.success == true) {
-      // Fimber.i('Faqs founded');
       List<Drink> drink = [];
       (jsonDecode(response.data)['drinks'] as List<dynamic>).forEach((element) {
-        // element.image = 'https://www.thecocktaildb.com/images/ingredients/' + element[0].value +  '-Small.png';
         drink.add(Drink.fromJson(element));
 
       });
-      // print(ingredienti);
-      // Fimber.i('Faqs founded ${faqs.length}');
       return drink;
     } else {
-      // Fimber.i('FaqsService - getFaqs error intercepted');
       throw Exception(
           "Errore in fase di recupero delle informazioni: ${response.errorMessage}");
     }

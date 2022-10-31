@@ -45,36 +45,7 @@ class DashboardScreen extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Colors.grey.shade500),
-                    
-                    // gradient: 
-                    // provider.index == 0
-                    // ?
-                    // LinearGradient(
-                    //   stops: [0.3, 0.9],
-                    //     colors: [                          
-                    //       Colors.grey.shade900,
-                    //       Colors.grey.shade800
-                    //     ]
-                    // )
-                    // :
-                    // provider.index == 1
-                    // ?
-                    // LinearGradient(
-                    //   stops: [0.3, 0.5, 0.9],
-                    //     colors: [                          
-                    //       Colors.grey.shade800,
-                    //       Colors.grey.shade900,
-                    //       Colors.grey.shade800,
-                    //     ]
-                    // )
-                    // :
-                    // LinearGradient(
-                    //   stops: [0.3, 0.9],
-                    //     colors: [                          
-                    //       Colors.grey.shade800,
-                    //       Colors.grey.shade900,
-                    //     ]
-                    // )
+              
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(0.0),

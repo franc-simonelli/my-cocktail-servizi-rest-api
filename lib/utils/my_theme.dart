@@ -102,7 +102,6 @@ class MyTheme {
 
 
   static ThemeData themeDark = ThemeData(
-    // fontFamily: 'RobotoMono',
     backgroundColor: primary,
     scaffoldBackgroundColor: primary,
     primaryColor: primary,
@@ -115,7 +114,6 @@ class MyTheme {
       headlineSmall: GoogleFonts.josefinSans(textStyle: TextStyle(color: Colors.grey, fontSize: 16, )),
       labelSmall: GoogleFonts.josefinSans(textStyle: TextStyle(color: Colors.grey, fontSize: 15, fontWeight: FontWeight.bold)),
       bodyMedium: GoogleFonts.josefinSans(textStyle: TextStyle(color: Colors.grey, fontSize: 18, )),
-      // headline1: GoogleFonts.josefinSans(textStyle: TextStyle(color: Colors.black, fontSize: 16)),
     )
   );
 

@@ -38,7 +38,6 @@ class DrinkProvider extends ChangeNotifier {
 
   
   setIsopen(bool) {
-    // _isOpen = !_isOpen;
     _isOpen = bool;
     notifyListeners();
   }
